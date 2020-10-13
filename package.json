@@ -1,0 +1,17 @@
+{
+  "name": "vue_deck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "vue serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "deck.gl": "^8.2.10",
+    "mapbox-gl": "^1.12.0",
+    "vue": "^2.6.12"
+  }
+}
