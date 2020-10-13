@@ -8,3 +8,5 @@ A prebuilt Vue.js component with DeckGL support.
 - Then you can `vue serve` to serve the example vue component.
 - Or `vue serve App.vue` expicitly
 - Or you can run `npm run serve`.
+You'll also need a env.js file to keep your mapbox token in, until we figure out a way to 
+get `vue serve` prototyping feature to include
