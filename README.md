@@ -5,6 +5,7 @@ A prebuilt Vue.js component with DeckGL support.
 
 ## Development
 - To run the example component you need [vue-cli](https://cli.vuejs.org/) installed.
+- Then change directory into dev `cd dev`
 - Then you can `vue serve` to serve the example vue component.
 - Or `vue serve App.vue` expicitly
 - Or you can run `npm run serve`.
