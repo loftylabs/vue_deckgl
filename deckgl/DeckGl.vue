@@ -38,14 +38,17 @@ export default {
                 pitch: viewState.pitch,
             })
         },
-        pickObject(opts) {
-            return this.deck.pickObject(opts);
+        //Get the closest pickable and visible object at the given screen coordinate.
+        pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
+            return this.deck.pickObject({x, y, radius, layerIds, unproject3D});
         },
-        pickMultipleObjects(opts) {
-            return this.deck.pickMultipleObjects(opts);
+        // Performs deep picking. Finds all close pickable and visible object at the given screen coordinate, even if those objects are occluded by other objects.
+        pickMultipleObjects(x, y, radius=0, layerIds=null, depth=10, unproject3D=false) {
+            return this.deck.pickMultipleObjects({x, y, radius, layerIds, depth, unproject3D});
         },
-        pickObjects(opts) {
-            return this.deck.pickObjects(opts);
+        //Get all pickable and visible objects within a bounding box.
+        pickObjects(x, y, width=1, height=1, layerIds=null) {
+            return this.deck.pickObjects({x, y, width, height, layerIds});
         }
     }
 }

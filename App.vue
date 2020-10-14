@@ -73,13 +73,13 @@
                 this.map = map
             },
             testSinglePick(){
-                console.log(this.$refs.deck.pickObject({x: 100, y:100, radius: 1}))
+                console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
             },
             testMultiPick(){
-                console.log(this.$refs.deck.pickMultipleObjects({x: 100, y:100, radius: 1}))
+                console.log(this.$refs.deck.pickMultipleObjects(100, 100, 0, null, 10, false))
             },
             testObjectsPick(){
-                console.log(this.$refs.deck.pickObjects({x: 100, y:100, radius: 1}))
+                console.log(this.$refs.deck.pickObjects(100, 100, 1, 1, null))
             }
         }
     }
