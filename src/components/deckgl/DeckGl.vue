@@ -25,16 +25,25 @@ export default {
         },
         layers: {
             type: Array
+        },
+        controlMap: {
+            type: Boolean,
+            default: false
         }
     },
     mounted() {
         this.deck = new Deck({ ...this.settings, onViewStateChange: this.moveMap})
+
         this.map = processChildren(this.$children)
+        
     },
     methods: {
         moveMap({ viewState }) {
                 this.deck.setProps({ viewState: viewState })
-                this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+
+                if(this.controlMap){
+                    this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+                }
         },
         //Get the closest pickable and visible object at the given screen coordinate.
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
