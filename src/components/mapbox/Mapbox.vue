@@ -27,7 +27,11 @@
         mounted() {
             mapboxgl.accessToken = this.accessToken
             this.map = new mapboxgl.Map(this.settings)
-            this.$emit('created', this.map)
+        },
+        methods: {
+            jumpTo(center, zoom, bearing, pitch){
+                this.map.jumpTo({center, zoom, bearing, pitch})
+            }
         }
     }
 </script>

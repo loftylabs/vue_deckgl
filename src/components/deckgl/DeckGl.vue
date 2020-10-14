@@ -1,15 +1,21 @@
 <template>
-    <canvas id="deck-canvas"></canvas>
+    <div>
+        <slot></slot>
+        <canvas id="deck-canvas"></canvas>
+    </div>
 </template>
 
 <script>
 import { Deck } from "@deck.gl/core"
 
+import processChildren from "../utils/processChildren.js"
+
 export default {
     name: 'deckgl',
     data() {
         return { 
-            deck: {}
+            deck: {},
+            map: {}
         }
     },
     props: {
@@ -20,23 +26,24 @@ export default {
         layers: {
             type: Array
         },
-        map: {
-            type: Object
+        controlMap: {
+            type: Boolean,
+            default: false
         }
     },
     mounted() {
         this.deck = new Deck({ ...this.settings, onViewStateChange: this.moveMap})
-        this.$emit("created", this.deck)
+
+        this.map = processChildren(this.$children)
+        
     },
     methods: {
         moveMap({ viewState }) {
-            this.deck.setProps({ viewState: viewState })
-            this.map.jumpTo({
-                center: [viewState.longitude, viewState.latitude],
-                zoom: viewState.zoom,
-                bearing: viewState.bearing,
-                pitch: viewState.pitch,
-            })
+                this.deck.setProps({ viewState: viewState })
+
+                if(this.controlMap){
+                    this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+                }
         },
         //Get the closest pickable and visible object at the given screen coordinate.
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
