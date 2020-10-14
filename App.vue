@@ -1,25 +1,25 @@
 <template>
     <div class="example">
         <h1>hello</h1>
-        <Mapbox
-            :accessToken="mapboxToken"
-            :settings="mapboxSettings"
-            :class="['fill-wrapper']"
-            @created="setMap"
-         />
         <DeckGl 
-            :map="map"
+            ref="deck"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
             @created="setDeck"
-        />
+        >
+                <Mapbox
+                :accessToken="mapboxToken"
+                :settings="mapboxSettings"
+                :class="['fill-wrapper']"
+                />
+        </DeckGl>>
     </div>
 </template>
 
 <script>
     import DeckGl from './deckgl'
     import Mapbox from './mapbox'
-    import MAPBOX_TOKEN from './env'
+    import MAPBOX_TOKEN from './env.js'
 
     const MAP_STYLES = {
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
@@ -60,17 +60,9 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
-                map: {},
-                deck: {}
             }
         },
         methods: {
-            setMap(map) {
-                this.map = map
-            },
-            setDeck(deck) {
-                this.deck = deck
-            }
         }
     }
 </script>

@@ -1,15 +1,33 @@
 <template>
-    <canvas id="deck-canvas"></canvas>
+    <div>
+        <slot></slot>
+        <canvas id="deck-canvas"></canvas>
+    </div>
 </template>
 
 <script>
 import { Deck } from "@deck.gl/core"
 
+
+const processChildren = (children) => {
+    let map = null
+
+    children.forEach(child => {
+        // TODO: To add support for Slotted Layers, we will need to change this to a return type of {} with a map key and maybe a layers key which points to an Array.
+        if(child.$options._componentTag === 'Mapbox'){
+            console.log('found it')
+            map = child
+        }
+    });
+    return map
+}
+
 export default {
     name: 'deckgl',
     data() {
         return { 
-            deck: {}
+            deck: {},
+            map: {}
         }
     },
     props: {
@@ -19,24 +37,17 @@ export default {
         },
         layers: {
             type: Array
-        },
-        map: {
-            type: Object
         }
     },
     mounted() {
         this.deck = new Deck({ ...this.settings, onViewStateChange: this.moveMap})
-        this.$emit("created", this.deck)
+        this.map = processChildren(this.$children)
     },
     methods: {
         moveMap({ viewState }) {
+            console.log(viewState)
                 this.deck.setProps({ viewState: viewState })
-                this.map.jumpTo({
-                    center: [viewState.longitude, viewState.latitude],
-                    zoom: viewState.zoom,
-                    bearing: viewState.bearing,
-                    pitch: viewState.pitch,
-                })
+                this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
             }
     }
 }
