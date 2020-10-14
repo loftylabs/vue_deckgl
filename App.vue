@@ -1,6 +1,5 @@
 <template>
     <div class="example">
-        <h1>hello</h1>
         <Mapbox
             :accessToken="mapboxToken"
             :settings="mapboxSettings"
@@ -8,18 +7,23 @@
             @created="setMap"
          />
         <DeckGl 
+            ref='deck'
             :map="map"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
-            @created="setDeck"
         />
+        <div style="position:absolute;">
+            <button  @click="testSinglePick">Test Deck Single Pick object</button>
+            <button  @click="testMultiPick">Test Deck Multi Pick object</button>
+            <button  @click="testObjectsPick">Test Deck Objects Pick object</button>
+        </div>
     </div>
 </template>
 
 <script>
     import DeckGl from './deckgl'
     import Mapbox from './mapbox'
-    import MAPBOX_TOKEN from './env'
+    import MAPBOX_TOKEN from './env.js'
 
     const MAP_STYLES = {
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
@@ -68,8 +72,14 @@
             setMap(map) {
                 this.map = map
             },
-            setDeck(deck) {
-                this.deck = deck
+            testSinglePick(){
+                console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
+            },
+            testMultiPick(){
+                console.log(this.$refs.deck.pickMultipleObjects(100, 100, 0, null, 10, false))
+            },
+            testObjectsPick(){
+                console.log(this.$refs.deck.pickObjects(100, 100, 1, 1, null))
             }
         }
     }
