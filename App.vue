@@ -26,14 +26,6 @@
         'dark': 'mapbox://styles/mapbox/dark-v10'
     }
 
-
-    // urls for sample data. feel free to add more from this repo
-//     const DATA_URL = {
-//     ACCIDENTS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/accidents.csv',
-//     ROADS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/roads.json'
-// };
-
-
     const INITIAL_VIEW_STATE = {
         latitude: 37.8,
         longitude: -122.45,
