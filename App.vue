@@ -4,6 +4,7 @@
             ref="deck"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
+            :controlMap="false"
             @created="setDeck"
         >
                 <Mapbox
