@@ -45,9 +45,7 @@ export default {
     mounted() {
         this.deck = new Deck({ ...this.settings, onViewStateChange: this.moveMap})
 
-        if(this.controlMap){
-            this.map = processChildren(this.$children)
-        }
+        this.map = processChildren(this.$children)
         
     },
     methods: {
