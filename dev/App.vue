@@ -5,7 +5,6 @@
             :settings="deckglSettings"
             :class="['fill-wrapper']"
             :controlMap="false"
-            @created="setDeck"
         >
                 <Mapbox
                 :accessToken="mapboxToken"
@@ -22,9 +21,9 @@
 </template>
 
 <script>
-    import DeckGl from './deckgl'
-    import Mapbox from './mapbox'
-    import MAPBOX_TOKEN from './env.js'
+    import DeckGl from '../src/components/deckgl'
+    import Mapbox from '../src/components/mapbox'
+    import MAPBOX_TOKEN from '../env.js'
 
     const MAP_STYLES = {
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
