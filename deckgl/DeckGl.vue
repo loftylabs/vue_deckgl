@@ -25,7 +25,11 @@ export default {
         }
     },
     mounted() {
-        this.deck = new Deck({ ...this.settings, onViewStateChange: this.moveMap})
+        this.deck = new Deck({ 
+        ...this.settings, 
+        onViewStateChange: this.moveMap,
+        layers: this.layers
+        })
         this.$emit("created", this.deck)
     },
     methods: {

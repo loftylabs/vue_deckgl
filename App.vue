@@ -1,6 +1,5 @@
 <template>
     <div class="example">
-        <h1>hello</h1>
         <Mapbox
             :accessToken="mapboxToken"
             :settings="mapboxSettings"
@@ -9,6 +8,7 @@
          />
         <DeckGl 
             :map="map"
+            :layers="layers"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
             @created="setDeck"
@@ -25,6 +25,15 @@
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
         'dark': 'mapbox://styles/mapbox/dark-v10'
     }
+
+
+    // urls for sample data
+    const DATA_URL = {
+    ACCIDENTS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/accidents.csv',
+    ROADS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/roads.json'
+};
+
+
     const INITIAL_VIEW_STATE = {
         latitude: 37.8,
         longitude: -122.45,
@@ -55,13 +64,17 @@
     export default {
         components: { Mapbox, DeckGl },
         name: 'Example',
+        mounted(){
+
+        },
         data() {
             return {
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
                 map: {},
-                deck: {}
+                deck: {},
+                layers:[]
             }
         },
         methods: {
