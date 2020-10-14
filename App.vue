@@ -1,6 +1,5 @@
 <template>
     <div class="example">
-        <h1>hello</h1>
         <DeckGl 
             ref="deck"
             :settings="deckglSettings"
@@ -13,6 +12,11 @@
                 :class="['fill-wrapper']"
                 />
         </DeckGl>>
+        <div style="position:absolute;">
+            <button  @click="testSinglePick">Test Deck Single Pick object</button>
+            <button  @click="testMultiPick">Test Deck Multi Pick object</button>
+            <button  @click="testObjectsPick">Test Deck Objects Pick object</button>
+        </div>
     </div>
 </template>
 
@@ -63,6 +67,15 @@
             }
         },
         methods: {
+            testSinglePick(){
+                console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
+            },
+            testMultiPick(){
+                console.log(this.$refs.deck.pickMultipleObjects(100, 100, 0, null, 10, false))
+            },
+            testObjectsPick(){
+                console.log(this.$refs.deck.pickObjects(100, 100, 1, 1, null))
+            }
         }
     }
 </script>
