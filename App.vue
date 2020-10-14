@@ -64,9 +64,6 @@
     export default {
         components: { Mapbox, DeckGl },
         name: 'Example',
-        mounted(){
-
-        },
         data() {
             return {
                 mapboxToken: MAPBOX_TOKEN,
