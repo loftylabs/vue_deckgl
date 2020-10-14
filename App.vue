@@ -28,10 +28,10 @@
 
 
     // urls for sample data
-    const DATA_URL = {
-    ACCIDENTS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/accidents.csv',
-    ROADS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/roads.json'
-};
+//     const DATA_URL = {
+//     ACCIDENTS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/accidents.csv',
+//     ROADS: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/highway/roads.json'
+// };
 
 
     const INITIAL_VIEW_STATE = {
