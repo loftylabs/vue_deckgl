@@ -11,7 +11,7 @@
                 :settings="mapboxSettings"
                 :class="['fill-wrapper']"
                 />
-        </DeckGl>>
+        </DeckGl>
         <div style="position:absolute;">
             <button  @click="testSinglePick">Test Deck Single Pick object</button>
             <button  @click="testMultiPick">Test Deck Multi Pick object</button>
