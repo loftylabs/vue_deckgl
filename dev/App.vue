@@ -5,6 +5,7 @@
             :settings="deckglSettings"
             :class="['fill-wrapper']"
             :controlMap="false"
+            :layers="layers"
         >
                 <Mapbox
                 :accessToken="mapboxToken"
@@ -65,6 +66,7 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
+                layers:[]
             }
         },
         methods: {
