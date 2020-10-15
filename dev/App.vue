@@ -5,6 +5,7 @@
             :settings="deckglSettings"
             :class="['fill-wrapper']"
             :controlMap="false"
+            :layers="layers"
         >
                 <Mapbox
                 :accessToken="mapboxToken"
@@ -29,6 +30,7 @@
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
         'dark': 'mapbox://styles/mapbox/dark-v10'
     }
+
     const INITIAL_VIEW_STATE = {
         latitude: 37.8,
         longitude: -122.45,
@@ -64,6 +66,7 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
+                layers:[]
             }
         },
         methods: {
