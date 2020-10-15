@@ -1,25 +1,29 @@
 <template>
     <div class="example">
-        <Mapbox
-            :accessToken="mapboxToken"
-            :settings="mapboxSettings"
-            :class="['fill-wrapper']"
-            @created="setMap"
-         />
         <DeckGl 
-            :map="map"
-            :layers="layers"
+            ref="deck"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
-            @created="setDeck"
-        />
+            :controlMap="false"
+        >
+                <Mapbox
+                :accessToken="mapboxToken"
+                :settings="mapboxSettings"
+                :class="['fill-wrapper']"
+                />
+        </DeckGl>
+        <div style="position:absolute;">
+            <button  @click="testSinglePick">Test Deck Single Pick object</button>
+            <button  @click="testMultiPick">Test Deck Multi Pick object</button>
+            <button  @click="testObjectsPick">Test Deck Objects Pick object</button>
+        </div>
     </div>
 </template>
 
 <script>
-    import DeckGl from './deckgl'
-    import Mapbox from './mapbox'
-    import MAPBOX_TOKEN from './env'
+    import DeckGl from '../src/components/deckgl'
+    import Mapbox from '../src/components/mapbox'
+    import MAPBOX_TOKEN from '../env.js'
 
     const MAP_STYLES = {
         'satellite': 'mapbox://styles/mapbox/satellite-v9',
@@ -61,17 +65,17 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
-                map: {},
-                deck: {},
-                layers:[]
             }
         },
         methods: {
-            setMap(map) {
-                this.map = map
+            testSinglePick(){
+                console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
             },
-            setDeck(deck) {
-                this.deck = deck
+            testMultiPick(){
+                console.log(this.$refs.deck.pickMultipleObjects(100, 100, 0, null, 10, false))
+            },
+            testObjectsPick(){
+                console.log(this.$refs.deck.pickObjects(100, 100, 1, 1, null))
             }
         }
     }
