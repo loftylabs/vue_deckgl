@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { Deck } from "@deck.gl/core"
+import { Deck, MapView } from "@deck.gl/core"
 
 import processChildren from "../utils/processChildren.js"
 
@@ -26,6 +26,10 @@ export default {
         layers: {
             type: Array
         },
+        views: {
+            type: Array,
+            required: false,
+        },
         controlMap: {
             type: Boolean,
             default: false
@@ -34,19 +38,14 @@ export default {
             type: Function,
             required: false
         },
-        layerFilter: {
-            type: Function,
-            required: false
-        }
-        
     },
     mounted() {
         
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
         layers:this.layers,
+        views:this.views || [new MapView()],
         getTooltip: ({object}) =>  this.getTooltip({object}),
-        layerFilter: ({layer, viewport}) => this.layerFilter({layer, viewport})
         })
 
         this.map = processChildren(this.$children)

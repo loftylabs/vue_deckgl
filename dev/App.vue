@@ -30,6 +30,7 @@
     import MAPBOX_TOKEN from '../env.js'
     import {getTooltip, colorScale} from './exampleUtils'
 
+
     export default {
         components: { Mapbox, DeckGl },
         name: 'Example',
@@ -39,6 +40,7 @@
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
                 layers:[],
+                views:[]
             }
         },
         mounted(){
@@ -58,6 +60,7 @@
                         pickable: true,
                         })
                 )
+
         },
         methods: {
            getTooltip,
