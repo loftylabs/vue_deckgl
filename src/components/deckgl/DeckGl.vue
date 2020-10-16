@@ -30,19 +30,18 @@ export default {
             type: Boolean,
             default: false
         },
+        getTooltip: {
+            type: Function,
+            required: false
+        }
+        
     },
     mounted() {
-        function getTooltip({object}) {
-  return object && `Average Property Value
-${object.properties.valuePerSqm}
-Growth
-${Math.round(object.properties.growth * 100)}`;
-}
-
+        
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
         layers:this.layers,
-        getTooltip
+        getTooltip: ({object}) =>  this.getTooltip({object})
         })
 
         this.map = processChildren(this.$children)

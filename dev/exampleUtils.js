@@ -35,7 +35,22 @@ const dirLight = new SunLight({
 const landCover = [[[-123.0, 49.196], [-123.0, 49.324], [-123.306, 49.324], [-123.306, 49.196]]];
 
 
+function colorScale(x) {
+    const i = Math.round(x * 7) + 4;
+    if (x < 0) {
+      return COLOR_SCALE[i] || COLOR_SCALE[0];
+    }
+    return COLOR_SCALE[i] || COLOR_SCALE[COLOR_SCALE.length - 1];
+  }
 
 
+function getTooltip({object}) {
+    return object && `Average Property Value
+  ${object.properties.valuePerSqm}
+  Growth
+  ${Math.round(object.properties.growth * 100)}`;
+  }
+  
 
-export {COLOR_SCALE, landCover, dirLight, ambientLight}
+
+export {landCover, dirLight, ambientLight, colorScale, getTooltip}
