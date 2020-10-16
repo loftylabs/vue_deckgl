@@ -7,6 +7,7 @@
             :controlMap="false"
             :layers="layers"
             :getTooltip="getTooltip"
+            :layerFilter="getLayerFilter"
             >
             <Mapbox
             :accessToken="mapboxToken"
@@ -28,7 +29,7 @@
     import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL} from './exampleSettings'
     import {GeoJsonLayer} from '@deck.gl/layers';
     import MAPBOX_TOKEN from '../env.js'
-    import {getTooltip, colorScale} from './exampleUtils'
+    import {getTooltip, colorScale, getLayerFilter} from './exampleUtils'
 
     export default {
         components: { Mapbox, DeckGl },
@@ -61,6 +62,7 @@
         },
         methods: {
            getTooltip,
+           getLayerFilter,
             testSinglePick(){
                 console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
             },

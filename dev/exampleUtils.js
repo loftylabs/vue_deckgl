@@ -51,6 +51,17 @@ function getTooltip({object}) {
   ${Math.round(object.properties.growth * 100)}`;
   }
   
+function getLayerFilter({layer, viewport}){
+    
+  console.log(viewport)
+  if (layer.id === 'geojson') {
+      // only display geofence in the minimap
+      return false;
+    }
+    return true;
 
 
-export {landCover, dirLight, ambientLight, colorScale, getTooltip}
+}
+
+
+export {landCover, dirLight, ambientLight, colorScale, getTooltip, getLayerFilter}
