@@ -29,12 +29,20 @@ export default {
         controlMap: {
             type: Boolean,
             default: false
-        }
+        },
     },
     mounted() {
+        function getTooltip({object}) {
+  return object && `Average Property Value
+${object.properties.valuePerSqm}
+Growth
+${Math.round(object.properties.growth * 100)}`;
+}
+
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
-        layers:this.layers
+        layers:this.layers,
+        getTooltip
         })
 
         this.map = processChildren(this.$children)
