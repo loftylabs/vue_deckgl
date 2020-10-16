@@ -4,7 +4,7 @@
             ref="deck"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
-            :controlMap="true"
+            :controlMap="false"
             :layers="layers"
             :getTooltip="getTooltip"
             >
