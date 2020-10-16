@@ -103,9 +103,6 @@ const INITIAL_VIEW_STATE = {
       pickable: true,
     })
             )
-
-
-            
             
         },
         methods: {
