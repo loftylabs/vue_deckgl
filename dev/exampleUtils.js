@@ -51,7 +51,7 @@ function getTooltip({object}) {
   ${Math.round(object.properties.growth * 100)}`;
   }
   
-function getLayerFilter({layer, viewport}){
+function isGeojson({layer, viewport}){
     
   console.log(viewport)
   if (layer.id === 'geojson') {
@@ -64,4 +64,4 @@ function getLayerFilter({layer, viewport}){
 }
 
 
-export {landCover, dirLight, ambientLight, colorScale, getTooltip, getLayerFilter}
+export {landCover, dirLight, ambientLight, colorScale, getTooltip, isGeojson}
