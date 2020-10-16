@@ -33,6 +33,10 @@ export default {
         getTooltip: {
             type: Function,
             required: false
+        },
+        canvasStyle: {
+            type: Object,
+            required:false
         }
         
     },
@@ -41,6 +45,7 @@ export default {
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
         layers:this.layers,
+        style:this.canvasStyle,
         getTooltip: ({object}) =>  this.getTooltip({object})
         })
 

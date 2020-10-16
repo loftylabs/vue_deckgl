@@ -53,4 +53,11 @@ function getTooltip({object}) {
   
 
 
-export {landCover, dirLight, ambientLight, colorScale, getTooltip}
+
+const style = {
+  color:'green',
+}
+
+
+
+export {landCover, dirLight, ambientLight, colorScale, getTooltip, style}

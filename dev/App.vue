@@ -2,9 +2,10 @@
     <div class="example">
         <DeckGl 
             ref="deck"
+            :canvasStyle="style"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
-            :controlMap="false"
+            :controlMap="true"
             :layers="layers"
             :getTooltip="getTooltip"
             >
@@ -28,7 +29,7 @@
     import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL} from './exampleSettings'
     import {GeoJsonLayer} from '@deck.gl/layers';
     import MAPBOX_TOKEN from '../env.js'
-    import {getTooltip, colorScale} from './exampleUtils'
+    import {getTooltip, colorScale, style} from './exampleUtils'
 
     export default {
         components: { Mapbox, DeckGl },
@@ -39,6 +40,7 @@
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
                 layers:[],
+                style: style
             }
         },
         mounted(){
