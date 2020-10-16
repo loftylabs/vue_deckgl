@@ -40,7 +40,6 @@
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
                 layers:[],
-                views:[]
             }
         },
         mounted(){
