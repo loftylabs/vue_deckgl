@@ -29,12 +29,19 @@ export default {
         controlMap: {
             type: Boolean,
             default: false
+        },
+        getTooltip: {
+            type: Function,
+            required: false
         }
+        
     },
     mounted() {
+        
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
-        layers:this.layers
+        layers:this.layers,
+        getTooltip: ({object}) =>  this.getTooltip({object})
         })
 
         this.map = processChildren(this.$children)

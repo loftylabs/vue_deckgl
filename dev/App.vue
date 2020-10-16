@@ -6,12 +6,13 @@
             :class="['fill-wrapper']"
             :controlMap="false"
             :layers="layers"
-        >
-                <Mapbox
-                :accessToken="mapboxToken"
-                :settings="mapboxSettings"
-                :class="['fill-wrapper']"
-                />
+            :getTooltip="getTooltip"
+            >
+            <Mapbox
+            :accessToken="mapboxToken"
+            :settings="mapboxSettings"
+            :class="['fill-wrapper']"
+            />
         </DeckGl>
         <div style="position:absolute;">
             <button  @click="testSinglePick">Test Deck Single Pick object</button>
@@ -24,10 +25,10 @@
 <script>
     import DeckGl from '../src/components/deckgl'
     import Mapbox from '../src/components/mapbox'
-    import { MAPBOX_SETTINGS, DECKGL_SETTINGS} from '../src/components/utils/defaultSettings'
+    import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL} from './exampleSettings'
+    import {GeoJsonLayer} from '@deck.gl/layers';
     import MAPBOX_TOKEN from '../env.js'
-    
-
+    import {getTooltip, colorScale} from './exampleUtils'
 
     export default {
         components: { Mapbox, DeckGl },
@@ -37,10 +38,29 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
-                layers:[]
+                layers:[],
             }
         },
+        mounted(){
+            this.layers.push(
+                new GeoJsonLayer({
+                        id: 'geojson',
+                        data: DATA_URL,
+                        opacity: 0.8,
+                        stroked: false,
+                        filled: true,
+                        extruded: true,
+                        wireframe: true,
+                        fp64: true,
+                        getElevation: f => Math.sqrt(f.properties.valuePerSqm) * 10,
+                        getFillColor: f => colorScale(f.properties.growth),
+                        getLineColor: [255, 255, 255],
+                        pickable: true,
+                        })
+                )
+        },
         methods: {
+           getTooltip,
             testSinglePick(){
                 console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
             },
