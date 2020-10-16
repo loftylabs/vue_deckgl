@@ -33,6 +33,10 @@ export default {
         getTooltip: {
             type: Function,
             required: false
+        },
+        layerFilter: {
+            type: Function,
+            required: false
         }
         
     },
@@ -41,7 +45,8 @@ export default {
         this.deck = new Deck({ ...this.settings, 
         onViewStateChange: this.moveMap,
         layers:this.layers,
-        getTooltip: ({object}) =>  this.getTooltip({object})
+        getTooltip: ({object}) =>  this.getTooltip({object}),
+        layerFilter: ({layer, viewport}) => this.layerFilter({layer, viewport})
         })
 
         this.map = processChildren(this.$children)
