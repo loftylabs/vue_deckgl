@@ -1,6 +1,6 @@
 {
-  "name": "vue_deck",
-  "version": "1.0.0",
+  "name": "@hirelofty/vue_deckgl",
+  "version": "0.8.0",
   "description": "",
   "author": "hirelofty.com",
   "scripts": {
