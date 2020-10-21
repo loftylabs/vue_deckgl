@@ -6,6 +6,7 @@
 <script>
     import mapboxgl from 'mapbox-gl'
     import 'mapbox-gl/dist/mapbox-gl.css'
+    import {MAPBOX_SETTINGS} from '../utils/defaultSettings.js'
 
     export default {
         name:'Mapbox',
@@ -21,12 +22,13 @@
             },
             map_style: {
                 type: String,
-                required: false
+                required: false,
+                default: MAPBOX_SETTINGS.style
             }
         },
         mounted() {
             mapboxgl.accessToken = this.accessToken
-            this.map = new mapboxgl.Map({...this.$attrs, style: this.map_style})
+            this.map = new mapboxgl.Map({...MAPBOX_SETTINGS, ...this.$attrs, style: this.map_style })
         },
         methods: {
             jumpTo(center, zoom, bearing, pitch){

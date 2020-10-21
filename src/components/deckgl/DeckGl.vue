@@ -9,6 +9,7 @@
 import { Deck } from "@deck.gl/core"
 
 import processChildren from "../utils/processChildren.js"
+import {DECKGL_SETTINGS} from '../utils/defaultSettings.js'
 
 export default {
     name: 'deckgl',
@@ -29,7 +30,7 @@ export default {
         }        
     },
     mounted() {
-        this.deck = new Deck({ 
+        this.deck = new Deck({ ...DECKGL_SETTINGS,
         ...this.$attrs, 
         ...this.$props, 
         onViewStateChange: this.moveMap,
