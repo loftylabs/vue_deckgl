@@ -19,14 +19,14 @@
                 type: String,
                 required: true
             },
-            settings: {
-                type: Object,
-                required: true
+            map_style: {
+                type: String,
+                required: false
             }
         },
         mounted() {
             mapboxgl.accessToken = this.accessToken
-            this.map = new mapboxgl.Map(this.settings)
+            this.map = new mapboxgl.Map({...this.$attrs, style: this.map_style})
         },
         methods: {
             jumpTo(center, zoom, bearing, pitch){

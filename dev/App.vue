@@ -2,17 +2,30 @@
     <div class="example">
         <DeckGl 
             ref="deck"
+            :test="'BLAH'"
             :settings="deckglSettings"
             :class="['fill-wrapper']"
-            :controlMap="false"
+            :controlMap="true"
             :layers="layers"
-            :getTooltip="getTooltip"
+            :canvas="'deck-canvas'"
+            :width="'100%'"
+            :height="'100%'"
+            :controller="true"
+            :useDevicePixels="false"
+            :viewState="deckglSettings.viewState"
             >
-            <Mapbox
-            :accessToken="mapboxToken"
-            :settings="mapboxSettings"
-            :class="['fill-wrapper']"
-            />
+                <Mapbox
+                :class="['fill-wrapper']"
+                :accessToken="mapboxToken"
+                :map_style="mapboxSettings.style"
+                :container="'map'"
+                :width="'100%'"
+                :interactive="false"
+                :center="mapboxSettings.center"
+                :zoom="mapboxSettings.zoom"
+                :bearing="mapboxSettings.bearing"
+                :pitch="mapboxSettings.pitch"
+                />
         </DeckGl>
         <div style="position:absolute;">
             <button  @click="testSinglePick">Test Deck Single Pick object</button>
@@ -38,13 +51,8 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
-                layers:[],
-            }
-        },
-        mounted(){
-            this.layers.push(
-                new GeoJsonLayer({
-                        id: 'geojson',
+                layers:[ new GeoJsonLayer({
+                        id: 'mylayer',
                         data: DATA_URL,
                         opacity: 0.8,
                         stroked: false,
@@ -56,8 +64,8 @@
                         getFillColor: f => colorScale(f.properties.growth),
                         getLineColor: [255, 255, 255],
                         pickable: true,
-                        })
-                )
+                        })],
+            }
         },
         methods: {
            getTooltip,

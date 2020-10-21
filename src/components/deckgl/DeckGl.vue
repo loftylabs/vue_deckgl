@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <slot></slot>
         <canvas id="deck-canvas"></canvas>
     </div>
@@ -19,29 +19,20 @@ export default {
         }
     },
     props: {
-        settings: {
-            type: Object,
-            required: true
-        },
-        layers: {
-            type: Array
-        },
         controlMap: {
             type: Boolean,
             default: false
         },
-        getTooltip: {
-            type: Function,
+        layers: {
+            type: Array,
             required: false
-        }
-        
+        }        
     },
     mounted() {
-        
-        this.deck = new Deck({ ...this.settings, 
+        this.deck = new Deck({ 
+        ...this.$attrs, 
+        ...this.$props, 
         onViewStateChange: this.moveMap,
-        layers:this.layers,
-        getTooltip: ({object}) =>  this.getTooltip({object})
         })
 
         this.map = processChildren(this.$children)
