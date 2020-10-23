@@ -2,8 +2,6 @@
     <div class="example">
         <DeckGl 
             ref="deck"
-            :test="'BLAH'"
-            :settings="deckglSettings"
             :class="['fill-wrapper']"
             :controlMap="true"
             :layers="layers"

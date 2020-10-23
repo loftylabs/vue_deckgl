@@ -33,19 +33,22 @@ export default {
         this.deck = new Deck({ ...DECKGL_SETTINGS,
         ...this.$attrs, 
         ...this.$props, 
-        onViewStateChange: this.moveMap,
+        onAfterRender: this.setupHandlers
         })
 
         this.map = processChildren(this.$children)
         
     },
     methods: {
+        setupHandlers(){
+            this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap})
+        },
         moveMap({ viewState }) {
-                this.deck.setProps({ viewState: viewState })
+            this.deck.setProps({ viewState: viewState })
 
-                if(this.controlMap){
-                    this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
-                }
+            if(this.controlMap){
+                this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+            }
         },
         //Get the closest pickable and visible object at the given screen coordinate.
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
