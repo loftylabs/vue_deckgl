@@ -7,11 +7,12 @@ import { DeckGL } from "../../src/components/deckgl";
 let wrapper;
 
 beforeAll(() => {
-  wrapper = shallowMount(DeckGL, {
-    props:{
-      settings: DECKGL_SETTINGS
-    }
-  });
+  wrapper = shallowMount(DeckGL,{
+      attrs:{
+        canvas: null,
+    },
+  }
+    );
 });
 
 afterAll(()=>{
