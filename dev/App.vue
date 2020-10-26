@@ -11,6 +11,7 @@
             :controller="true"
             :useDevicePixels="false"
             :viewState="deckglSettings.viewState"
+            @initialRender="()=>{hasDeckLoaded = true}"
             >
                 <Mapbox
                 :class="['fill-wrapper']"
@@ -25,6 +26,7 @@
                 :pitch="mapboxSettings.pitch"
                 />
         </DeckGl>
+        <h1 v-if="!hasDeckLoaded">Loading...</h1>
         <div style="position:absolute;">
             <button  @click="testSinglePick">Test Deck Single Pick object</button>
             <button  @click="testMultiPick">Test Deck Multi Pick object</button>
@@ -49,20 +51,8 @@
                 mapboxToken: MAPBOX_TOKEN,
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
-                layers:[ new GeoJsonLayer({
-                        id: 'mylayer',
-                        data: DATA_URL,
-                        opacity: 0.8,
-                        stroked: false,
-                        filled: true,
-                        extruded: true,
-                        wireframe: true,
-                        fp64: true,
-                        getElevation: f => Math.sqrt(f.properties.valuePerSqm) * 10,
-                        getFillColor: f => colorScale(f.properties.growth),
-                        getLineColor: [255, 255, 255],
-                        pickable: true,
-                        })],
+                layers:[ ],
+                hasDeckLoaded: false
             }
         },
         methods: {
@@ -76,6 +66,22 @@
             testObjectsPick(){
                 console.log(this.$refs.deck.pickObjects(100, 100, 1, 1, null))
             }
+        },
+        mounted(){            
+            this.layers.push(new GeoJsonLayer({
+                        id: 'mylayer',
+                        data: DATA_URL,
+                        opacity: 0.8,
+                        stroked: false,
+                        filled: true,
+                        extruded: true,
+                        wireframe: true,
+                        fp64: true,
+                        getElevation: f => Math.sqrt(f.properties.valuePerSqm) * 10,
+                        getFillColor: f => colorScale(f.properties.growth),
+                        getLineColor: [255, 255, 255],
+                        pickable: true,
+        }))
         }
     }
 </script>

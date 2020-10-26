@@ -16,7 +16,9 @@ export default {
     data() {
         return { 
             deck: {},
-            map: {}
+            map: {},
+            hasHandlers: false,
+            afterRenderCounter: 0 
         }
     },
     props: {
@@ -31,17 +33,30 @@ export default {
     },
     mounted() {
         this.deck = new Deck({ ...DECKGL_SETTINGS,
-        ...this.$attrs, 
-        ...this.$props, 
-        onAfterRender: this.setupHandlers
-        })
+            ...this.$attrs, 
+            ...this.$props,
+            onAfterRender: this.setupHandlers
+            })
+        console.log(this.deck.props)
 
         this.map = processChildren(this.$children)
         
     },
+    watch: {
+        layers(){
+            this.deck.setProps({layers: [...this.layers]})
+        }
+    },
     methods: {
         setupHandlers(){
-            this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap})
+            if(this.afterRenderCounter == 1){
+                this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap, onAfterRender: ()=>{}})
+                this.$emit('initialRender', true)
+                this.hasHandlers = true
+                
+            }
+            this.afterRenderCounter += 1
+            this.deck.setProps({...this.deck.props})
         },
         moveMap({ viewState }) {
             this.deck.setProps({ viewState: viewState })
