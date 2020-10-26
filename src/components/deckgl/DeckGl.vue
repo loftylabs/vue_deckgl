@@ -37,7 +37,6 @@ export default {
             ...this.$props,
             onAfterRender: this.setupHandlers
             })
-        console.log(this.deck.props)
 
         this.map = processChildren(this.$children)
         
