@@ -47,15 +47,25 @@ export default {
         }
     },
     methods: {
-        setupHandlers(){
+        /* The initialization of DeckGL is not working properly with Vue.
+            We need to setProps once before interactive listeners can be added (IE - onViewStateChange).
+            We know it's safe to do so once the render has taken place twice. (First Render = Canvas, Second Render = Layers)
+        */
+        hasInitialRenderBugResolved(){
             if(this.afterRenderCounter == 1){
-                this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap, onAfterRender: ()=>{}})
-                this.$emit('initialRender', true)
-                this.hasHandlers = true
-                
+                return true                
             }
             this.afterRenderCounter += 1
             this.deck.setProps({...this.deck.props})
+            return false
+        },
+        // Once we know we have moved past the initialRender cycle, we can then remove listener for onAfterRender, attach interactive listeners, and emit initialRender is complete.
+        setupHandlers(){
+            if(this.hasInitialRenderBugResolved()){
+                this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap, onAfterRender: ()=>{}})
+                this.$emit('initialRender', true)
+                this.hasHandlers = true
+            }
         },
         moveMap({ viewState }) {
             this.deck.setProps({ viewState: viewState })
