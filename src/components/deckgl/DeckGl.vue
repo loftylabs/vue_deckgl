@@ -16,7 +16,9 @@ export default {
     data() {
         return { 
             deck: {},
-            map: {}
+            map: {},
+            hasHandlers: false,
+            afterRenderCounter: 0 
         }
     },
     props: {
@@ -31,21 +33,46 @@ export default {
     },
     mounted() {
         this.deck = new Deck({ ...DECKGL_SETTINGS,
-        ...this.$attrs, 
-        ...this.$props, 
-        onViewStateChange: this.moveMap,
-        })
+            ...this.$attrs, 
+            ...this.$props,
+            onAfterRender: this.setupHandlers
+            })
 
         this.map = processChildren(this.$children)
         
     },
+    watch: {
+        layers(){
+            this.deck.setProps({layers: [...this.layers]})
+        }
+    },
     methods: {
+        /* The initialization of DeckGL is not working properly with Vue.
+            We need to setProps once before interactive listeners can be added (IE - onViewStateChange).
+            We know it's safe to do so once the render has taken place twice. (First Render = Canvas, Second Render = Layers)
+        */
+        hasInitialRenderBugResolved(){
+            if(this.afterRenderCounter == 1){
+                return true                
+            }
+            this.afterRenderCounter += 1
+            this.deck.setProps({...this.deck.props})
+            return false
+        },
+        // Once we know we have moved past the initialRender cycle, we can then remove listener for onAfterRender, attach interactive listeners, and emit initialRender is complete.
+        setupHandlers(){
+            if(this.hasInitialRenderBugResolved()){
+                this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap, onAfterRender: ()=>{}})
+                this.$emit('initialRender', true)
+                this.hasHandlers = true
+            }
+        },
         moveMap({ viewState }) {
-                this.deck.setProps({ viewState: viewState })
+            this.deck.setProps({ viewState: viewState })
 
-                if(this.controlMap){
-                    this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
-                }
+            if(this.controlMap){
+                this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+            }
         },
         //Get the closest pickable and visible object at the given screen coordinate.
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
