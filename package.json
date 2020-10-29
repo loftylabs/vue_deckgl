@@ -1,17 +1,25 @@
 {
-  "name": "vue_deck",
+  "name": "@hirelofty/vue_deckgl",
   "version": "1.0.0",
   "description": "",
-  "main": "App.vue",
+  "author": "hirelofty.com",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "vue serve"
+    "serve": "vue serve",
+    "test:unit": "vue-cli-service test:unit",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "main": "src/index.js",
   "dependencies": {
     "deck.gl": "^8.2.10",
     "mapbox-gl": "^1.12.0",
     "vue": "^2.6.12"
-  }
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.5.7",
+    "@vue/cli-service": "^4.5.7",
+    "@vue/cli-plugin-unit-jest": "^4.5.7",
+    "@vue/test-utils": "^1.0.3",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "license": "ISC"
 }
