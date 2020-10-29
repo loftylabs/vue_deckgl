@@ -12,9 +12,33 @@ jobs:
           command: |
             npm install
             npm run test:unit
+  deploy-docs:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.7.4-node
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: "41:19:87:21:56:6e:27:f4:71:ac:48:8f:da:90:6c:6f"
+      - run:
+          name: deploy docs
+          command: |
+            cd _docs
+            npm install
+            npm run generate
+            cd ..
+            git config --global user.email "ahackit@gmail.com"
+            git config --global user.name "Austin Hackett"
+            git add .
+            git commit -m "Automatic Documentation Commit [ci skip] ${CIRCLE_SHA1}" 
+            git push -f --set-upstream origin main
 
 workflows:
   version: 2
   build-test:
     jobs:
       - build-staging
+      - deploy-docs:
+          filters:
+            branches:
+              only: main
