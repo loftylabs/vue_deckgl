@@ -3,7 +3,7 @@
 A slighty opionated prebuilt Vue.js component that wraps the [DeckGL library](https://deck.gl/).
 
 ## Documentation
-- [Vue DeckGL Documentation and Full Tutorial]()
+- [Vue DeckGL Documentation and Full Tutorial](https://loftylabs.github.io/vue_deckgl/)
 - [DeckGL Documentation](https://deck.gl/docs)
 - [Mapbox Documentation](https://docs.mapbox.com/)
 
@@ -16,7 +16,7 @@ A slighty opionated prebuilt Vue.js component that wraps the [DeckGL library](ht
 
 ## Important Props
 
-For full explanation, [please visit the tutorial]()
+For full explanation, [please visit the tutorial](https://loftylabs.github.io/vue_deckgl/tutorial/settings)
 
 ### DeckGL
 | Prop        | Description           |
@@ -104,4 +104,4 @@ export default {
 
 ## Want to contribute? We want your help!
 
-- [See our contribution guide]()
+- [See our contribution guide](https://loftylabs.github.io/vue_deckgl/contribution/how_to_contribute)
