@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <slot></slot>
         <canvas id="deck-canvas"></canvas>
     </div>
@@ -39,6 +39,7 @@ export default {
             })
 
         this.map = processChildren(this.$children)
+        window.addEventListener('resize', this.onWindowResizeHandler)
         
     },
     watch: {
@@ -85,6 +86,11 @@ export default {
         //Get all pickable and visible objects within a bounding box.
         pickObjects(x, y, width=1, height=1, layerIds=null) {
             return this.deck.pickObjects({x, y, width, height, layerIds});
+        },
+        onWindowResizeHandler(){
+            setTimeout(() => {
+                this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
+            }, 300);
         }
     }
 }
