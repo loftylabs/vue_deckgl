@@ -29,10 +29,18 @@
         mounted() {
             mapboxgl.accessToken = this.accessToken
             this.map = new mapboxgl.Map({...MAPBOX_SETTINGS, ...this.$attrs, style: this.map_style })
+
+            window.addEventListener('resize', this.onWindowResizeHandler)
         },
         methods: {
             jumpTo(center, zoom, bearing, pitch){
                 this.map.jumpTo({center, zoom, bearing, pitch})
+            },
+            resize(){
+                this.map.resize()
+            },
+            onWindowResizeHandler(){
+            setTimeout(() => this.map.resize(), 300);
             }
         }
     }
