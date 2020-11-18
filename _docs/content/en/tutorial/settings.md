@@ -39,7 +39,6 @@ Some of these props are more important than others. Some will have minor explana
 ### DeckGL
 - `:class=""` - Need some CSS to visualize your component.
 - `:controlMap="true/false"` - tells the Vue_DeckGL Component it needs to manually interact with the slotted Mapbox component (not a native DeckGL Prop)
-- `:layers=[]` - where data will be provided. Minor explanation later. 
 - `:controller="true/false"` - Allows for DeckGL manual interactivity. Minor explanation later. 
 - `:viewState="{viewState}"` - Initial viewState object. Minor explanation later. 
 

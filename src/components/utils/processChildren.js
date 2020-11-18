@@ -11,7 +11,7 @@ export default (children) => {
         if(child.$options._componentTag === 'Mapbox'){
             map = child
         }
-        else if(child.baseLayerAttached){
+        else if(child.baseLayerImplemented){
             layers.push(child)
         }
     });

@@ -2,7 +2,7 @@ const BaseLayerMixin = {
     data(){
         return{
             layer: {},
-            baseLayerAttached: true
+            baseLayerImplemented: true
         }
     },
     props:{
