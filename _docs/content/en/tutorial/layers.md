@@ -95,5 +95,6 @@ export default {
 }
 </script>
 ```
-
 That's it! Now mileage may vary if you are attempting to implement a more complicated layer, but the key piece is that you simply add the BaseLayerMixin. 
+
+Note the `render: () => null` method. Because we are creating a Vue component that does not render any HTML, but instead works with Deck.gl to display data, we can override the Vue render method to return null here, to do nothing. This allows us to avoid having to include an empty template in our code.
