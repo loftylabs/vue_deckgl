@@ -1,7 +1,3 @@
-<template>
-  <div></div>
-</template>
-
 <script>
 import {GeoJsonLayer} from '@deck.gl/layers';
 
@@ -16,5 +12,6 @@ export default {
             data: this.layerData,
         })
     },
+    render: () => null
 }
 </script>

@@ -79,15 +79,9 @@ Notes about the implementation above
 To do this, all you need to do is create a layer that utilizes the BaseLayerMixin. This mixin is how Vue DeckGL knows that a slotted component passed was a layer type. Here's a quick example of implementing a GeoJsonLayer
 
 ```
-<template>
-  <div></div>
-</template>
-
 <script>
 import {GeoJsonLayer} from '@deck.gl/layers';
-
 import BaseLayerMixin from './BaseLayerMixin'
-
 export default {
     name: 'GeoJsonLayer',
     mixins:[BaseLayerMixin],
@@ -97,6 +91,7 @@ export default {
             data: this.layerData,
         })
     },
+    render: () => null
 }
 </script>
 ```

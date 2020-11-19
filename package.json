@@ -4,7 +4,7 @@
   "description": "",
   "author": "hirelofty.com",
   "scripts": {
-    "serve": "vue serve",
+    "serve": "vue serve dev/App.vue",
     "test:unit": "vue-cli-service test:unit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
