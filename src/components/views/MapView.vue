@@ -1,21 +1,19 @@
-<template>
-  <div id="base-map"></div>
-</template>
 <script>
-
-import mapViewMixin from '../utils/mapViewMixin'
+import baseViewMixin from './baseViewMixin.js'
 import {MapView} from '@deck.gl/core';
+import {MapController} from '@deck.gl/core';
+
 export default {
     name: 'MapView',
-    mixins:[mapViewMixin],
+    mixins:[baseViewMixin],
     created(){
         this.view = new MapView({
-            id: 'base-map'
+            ...this.$attrs,
+            controller: MapController
         });
 
 
 },
+render: () => null
 }
 </script>
-<style>
-</style>

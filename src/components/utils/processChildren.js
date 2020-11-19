@@ -1,6 +1,8 @@
 export default (children) => {
     let map = null
 
+    let views = []
+
     if(children === undefined){
         return map
     }
@@ -10,6 +12,10 @@ export default (children) => {
         if(child.$options._componentTag === 'Mapbox'){
             map = child
         }
+
+        else if(child.baseViewImplemented){
+            views.push(child)
+        }
     });
-    return map
+    return {map, views}
 }

@@ -2,10 +2,13 @@ const mapViewMixin = {
     data(){
         return{
             view: {},
-            implementsBaseView: true
+            baseViewImplemented: true
         }
     },
     props:{
+
+    },
+    mounted(){
 
     },
     methods: {
@@ -14,4 +17,4 @@ const mapViewMixin = {
         }
     }
 }
-export default mapViewMixin
+export default baseViewMixin
