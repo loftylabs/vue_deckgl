@@ -1,5 +1,6 @@
 export default (children) => {
     let map = null
+    let layers = []
 
     if(children === undefined){
         return map
@@ -10,6 +11,9 @@ export default (children) => {
         if(child.$options._componentTag === 'Mapbox'){
             map = child
         }
+        else if(child.baseLayerImplemented){
+            layers.push(child)
+        }
     });
-    return map
+    return {map, layers}
 }

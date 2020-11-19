@@ -18,18 +18,15 @@ export default {
             deck: {},
             map: {},
             hasHandlers: false,
-            afterRenderCounter: 0 
+            afterRenderCounter: 0,
+            layers: []
         }
     },
     props: {
         controlMap: {
             type: Boolean,
             default: false
-        },
-        layers: {
-            type: Array,
-            required: false
-        }        
+        },  
     },
     mounted() {
         this.deck = new Deck({ ...DECKGL_SETTINGS,
@@ -38,7 +35,13 @@ export default {
             onAfterRender: this.setupHandlers
             })
 
-        this.map = processChildren(this.$children)
+        const processedChildren = processChildren(this.$children)
+        this.map = processedChildren.map
+
+        processedChildren.layers.forEach(layer => {
+            this.layers.push(layer.getLayer())
+        })
+
         window.addEventListener('resize', this.onWindowResizeHandler)
         
     },
