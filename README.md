@@ -54,40 +54,32 @@ For full explanation, [please visit the tutorial](https://loftylabs.github.io/vu
                 :bearing="0"
                 :pitch="45"
                 />
+        <GeoJsonLayer 
+        :layerData="'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'"             
+        :id="'mylayer'"
+        :opacity="0.8"
+        :stroke="false"
+        :filled="true"
+        :extruded="true"
+        :wireframe="true"
+        :fp64="true"
+        :getElevation="f => Math.sqrt(f.properties.valuePerSqm) * 10"
+        :getLineColor="[255, 255, 255]"
+        :pickable="true" />
     </DeckGL>
   </div>
 </template>
 
 <script>
-import {DeckGL, Mapbox} from '@hirelofty/vue_deckgl'
-import {GeoJsonLayer} from '@deck.gl/layers';
+import {DeckGL, Mapbox, GeoJsonLayer} from '@hirelofty/vue_deckgl'
 
 export default {
   name: 'App',
   components: {
     DeckGL,
-    Mapbox
+    Mapbox,
+    GeoJsonLayer
   }, 
-  data(){
-      return{
-          layers:[]
-      }
-  },
-  mounted(){
-        this.layers.push(new GeoJsonLayer({
-            id: 'mylayer',
-            data: 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json',
-            opacity: 0.8,
-            stroked: false,
-            filled: true,
-            extruded: true,
-            wireframe: true,
-            fp64: true,
-            getElevation: f => Math.sqrt(f.properties.valuePerSqm) * 10,
-            getLineColor: [255, 255, 255],
-            pickable: true,
-        }))
-  }
 }
 </script>
 

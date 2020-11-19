@@ -1,5 +1,6 @@
 export default (children) => {
     let map = null
+    let layers = []
 
     let views = []
 
@@ -16,6 +17,9 @@ export default (children) => {
         else if(child.baseViewImplemented){
             views.push(child)
         }
+        else if(child.baseLayerImplemented){
+            layers.push(child)
+        }
+        return {map, layers}
     });
-    return {map, views}
 }
