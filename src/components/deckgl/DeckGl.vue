@@ -6,6 +6,9 @@
 </template>
 
 <script>
+
+
+let processedChildren;
 import { Deck } from "@deck.gl/core"
 
 import processChildren from "../utils/processChildren.js"
@@ -19,7 +22,8 @@ export default {
             map: {},
             hasHandlers: false,
             afterRenderCounter: 0,
-            layers: []
+            layers: [],
+            views: []
         }
     },
     props: {
@@ -27,6 +31,10 @@ export default {
             type: Boolean,
             default: false
         },  
+        useCustomViews: {
+            type: Boolean,
+            default: false
+        }
     },
     mounted() {
         this.deck = new Deck({ ...DECKGL_SETTINGS,
@@ -35,19 +43,27 @@ export default {
             onAfterRender: this.setupHandlers
             })
 
-        const processedChildren = processChildren(this.$children)
+        processedChildren = processChildren(this.$children)
         this.map = processedChildren.map
 
         processedChildren.layers.forEach(layer => {
             this.layers.push(layer.getLayer())
         })
 
+        processedChildren.views.forEach(view => {
+            this.views.push(view.getView())
+        })
+
         window.addEventListener('resize', this.onWindowResizeHandler)
+        window.addEventListener('load', this.loadWindow)
         
     },
     watch: {
         layers(){
             this.deck.setProps({layers: [...this.layers]})
+        },
+        views(){
+            this.deck.setProps({views: [...this.views]})
         }
     },
     methods: {
@@ -66,7 +82,11 @@ export default {
         // Once we know we have moved past the initialRender cycle, we can then remove listener for onAfterRender, attach interactive listeners, and emit initialRender is complete.
         setupHandlers(){
             if(this.hasInitialRenderBugResolved()){
-                this.deck.setProps({...this.deck.props, onViewStateChange: this.moveMap, onAfterRender: ()=>{}})
+                this.deck.setProps({
+                    ...this.deck.props, 
+                    onViewStateChange: ({ viewState }) => this.moveMap({ viewState}), 
+                    onAfterRender: ()=>{}
+                })
                 this.$emit('initialRender', true)
                 this.hasHandlers = true
             }
@@ -75,7 +95,15 @@ export default {
             this.deck.setProps({ viewState: viewState })
 
             if(this.controlMap){
-                this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+
+                if(!this.useCustomViews){
+                    this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+                }
+          
+            processedChildren.views.forEach(view => {
+                view.moveMap(viewState)
+               
+            })
             }
         },
         //Get the closest pickable and visible object at the given screen coordinate.
@@ -92,9 +120,15 @@ export default {
         },
         onWindowResizeHandler(){
             setTimeout(() => {
+                console.log(this.deck)
                 this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
-            }, 300);
+            }, 600);
+        },
+        loadWindow(){
+        this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
+
         }
+
     }
 }
 </script>

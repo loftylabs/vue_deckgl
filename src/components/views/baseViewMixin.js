@@ -1,4 +1,4 @@
-const mapViewMixin = {
+const baseViewMixin = {
     data(){
         return{
             view: {},
@@ -6,9 +6,6 @@ const mapViewMixin = {
         }
     },
     props:{
-
-    },
-    mounted(){
 
     },
     methods: {

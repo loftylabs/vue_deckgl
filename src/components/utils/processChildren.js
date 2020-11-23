@@ -1,7 +1,6 @@
 export default (children) => {
     let map = null
     let layers = []
-
     let views = []
 
     if(children === undefined){
@@ -14,12 +13,12 @@ export default (children) => {
             map = child
         }
 
-        else if(child.baseViewImplemented){
+        if(child.baseViewImplemented){
             views.push(child)
         }
-        else if(child.baseLayerImplemented){
+        if(child.baseLayerImplemented){
             layers.push(child)
         }
-        return {map, layers}
     });
+    return {map, layers, views}
 }

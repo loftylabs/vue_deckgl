@@ -36,8 +36,8 @@
             :longitude="mapboxSettings.center[0]"
             :latitude="mapboxSettings.center[1]"
             :controller="true"
-            :width="'100%'"
-            :height="'100%'"
+            :width="'25%'"
+            :height="'25%'"
             :zoom="mapboxSettings.zoom"
             >
                 <Mapbox
