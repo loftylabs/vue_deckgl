@@ -5,9 +5,6 @@ const baseViewMixin = {
             baseViewImplemented: true
         }
     },
-    props:{
-
-    },
     methods: {
         getView(){
             return this.view

@@ -23,19 +23,20 @@ export default {
         });
     },
     mounted(){
-      this.setWidthHeight()
       this.map = processChildren(this.$children)
-
+      this.setWidthHeight()
     },
     methods:{
       setWidthHeight(){
-           document.querySelector('.map-view').firstChild.style.height = this.$attrs.height;
-          document.querySelector('.map-view').firstChild.style.width = this.$attrs.width;
+        this.map.$el.style.height = this.$attrs.height;
+        this.map.$el.style.width = this.$attrs.width;
+
       },
-      moveMap(viewState){
-              this.setViewProps(viewState)
-              this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
-     
+      moveMap(viewState, controlMap){
+        this.setViewProps(viewState)
+        if(controlMap){
+            this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
+        }
       },
       setViewProps(viewState){
         this.view.props = {...viewState}
