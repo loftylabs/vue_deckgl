@@ -30,10 +30,6 @@ export default {
         controlMap: {
             type: Boolean,
             default: false
-        },  
-        useCustomViews: {
-            type: Boolean,
-            default: false
         }
     },
     mounted() {
@@ -55,16 +51,12 @@ export default {
         })
 
         window.addEventListener('resize', this.onWindowResizeHandler)
-        window.addEventListener('load', this.loadWindow)
         
     },
     watch: {
         layers(){
             this.deck.setProps({layers: [...this.layers]})
         },
-        views(){
-            this.deck.setProps({views: [...this.views]})
-        }
     },
     methods: {
         /* The initialization of DeckGL is not working properly with Vue.
@@ -82,29 +74,34 @@ export default {
         // Once we know we have moved past the initialRender cycle, we can then remove listener for onAfterRender, attach interactive listeners, and emit initialRender is complete.
         setupHandlers(){
             if(this.hasInitialRenderBugResolved()){
+
+
                 this.deck.setProps({
-                    ...this.deck.props, 
+                    ...this.deck.props,
+                    views: this.views.length > 0 ? [...this.views] : null,
+                    width:'100%', height:'100%',
                     onViewStateChange: ({ viewState }) => this.moveMap({ viewState}), 
                     onAfterRender: ()=>{}
                 })
+
                 this.$emit('initialRender', true)
                 this.hasHandlers = true
             }
         },
         moveMap({ viewState }) {
-            this.deck.setProps({ viewState: viewState })
-
             if(this.controlMap){
 
-                if(!this.useCustomViews){
+                if(this.views.length == 0){
                     this.map.jumpTo([viewState.longitude, viewState.latitude], viewState.zoom, viewState.bearing, viewState.pitch)
                 }
-          
-            processedChildren.views.forEach(view => {
-                view.moveMap(viewState)
-               
-            })
+
             }
+
+            processedChildren.views.forEach(view => {
+                    view.moveMap(viewState, this.controlMap)
+            })
+
+            this.deck.setProps({...this.deck.props,  viewState: viewState })
         },
         //Get the closest pickable and visible object at the given screen coordinate.
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
@@ -120,14 +117,10 @@ export default {
         },
         onWindowResizeHandler(){
             setTimeout(() => {
-                console.log(this.deck)
                 this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
             }, 600);
         },
-        loadWindow(){
-        this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
 
-        }
 
     }
 }

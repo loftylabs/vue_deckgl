@@ -4,7 +4,6 @@
             ref="deck"
             :class="['fill-wrapper']"
             :layers="layers"
-            :views="views"
             :width="'100%'"
             :height="'100%'"
             :canvas="'deck-canvas'"
@@ -13,7 +12,6 @@
             :controlMap="true"
             :viewState="deckglSettings.viewState"
             @initialRender="()=>{hasDeckLoaded = true}"
-            :useCustomViews="true"
             >
                 <GeoJsonLayer 
                 :layerData="data_url"             
@@ -30,9 +28,30 @@
                 :getLineColor="[255, 255, 255]"
                 :pickable="true"
             /> 
+
             
-          <MapView
+           <MapView
             :id="'my-map-view-2'"
+            :longitude="mapboxSettings.center[0]"
+            :latitude="mapboxSettings.center[1]"
+            :controller="true"
+            :width="'100%'"
+            :height="'100%'"
+            :zoom="mapboxSettings.zoom"
+            >
+                <Mapbox
+                :accessToken="mapboxToken"
+                :map_style="mapboxSettings.style"
+                :container="'mapbox-2'"
+                :interactive="true"
+                :center="mapboxSettings.center"
+                :zoom="mapboxSettings.zoom"
+                :bearing="mapboxSettings.bearing"
+                :pitch="mapboxSettings.pitch"
+                />
+          </MapView>
+        <MapView
+            :id="'my-map-view-1'"
             :longitude="mapboxSettings.center[0]"
             :latitude="mapboxSettings.center[1]"
             :controller="true"
@@ -41,10 +60,9 @@
             :zoom="mapboxSettings.zoom"
             >
                 <Mapbox
-                 :class="'map-wrapper'"
                 :accessToken="mapboxToken"
                 :map_style="mapboxSettings.style"
-                :container="'mapbox-2'"
+                :container="'mapbox-3'"
                 :interactive="true"
                 :center="mapboxSettings.center"
                 :zoom="mapboxSettings.zoom"
@@ -74,7 +92,7 @@
 
 
     export default {
-        components: {  DeckGl, MapView, Mapbox, GeoJsonLayer },
+        components: {  DeckGl, Mapbox, MapView, GeoJsonLayer },
         name: 'Example',
         data() {
             return {
@@ -82,7 +100,6 @@
                 mapboxSettings: MAPBOX_SETTINGS,
                 deckglSettings: DECKGL_SETTINGS,
                 layers:[ ],
-                views: [ ],
                 hasDeckLoaded: false,
                 data_url: '',
                 colorScale: colorScale,
