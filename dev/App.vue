@@ -13,20 +13,8 @@
             :controlMap="true"
             :viewState="deckglSettings.viewState"
             @initialRender="()=>{hasDeckLoaded = true}"
+            :useCustomViews="true"
             >
-                <!-- <Mapbox
-                :id="'map'"
-                :class="['fill-wrapper']"
-                :accessToken="mapboxToken"
-                :map_style="mapboxSettings.style"
-                :container="'map'"
-                :interactive="true"
-                :center="mapboxSettings.center"
-                :zoom="mapboxSettings.zoom"
-                :bearing="mapboxSettings.bearing"
-                :pitch="mapboxSettings.pitch"
-                /> -->
-                
                 <GeoJsonLayer 
                 :layerData="data_url"             
                 :id="'mylayer'"
@@ -42,40 +30,18 @@
                 :getLineColor="[255, 255, 255]"
                 :pickable="true"
             /> 
-            <!-- <MapView
-            :id="'my-map-view'"
-            :longitude="mapboxSettings.center[0]"
-            :latitude="mapboxSettings.center[1]"
-            :width="'30%'"
-            :height="'20%'"
-            :controller="true"
-            :zoom="mapboxSettings.zoom"
-            >
-                <Mapbox
-                :class="'map-wrapper'"
-                :accessToken="mapboxToken"
-                :map_style="mapboxSettings.style"
-                :container="'mapbox-1'"
-                :interactive="true"
-                :center="mapboxSettings.center"
-                :zoom="mapboxSettings.zoom"
-                :bearing="mapboxSettings.bearing"
-                :pitch="mapboxSettings.pitch"
-                />
-                
-            </MapView>  -->
+            
           <MapView
             :id="'my-map-view-2'"
             :longitude="mapboxSettings.center[0]"
             :latitude="mapboxSettings.center[1]"
-            :controller="controller"
+            :controller="true"
             :width="'100%'"
             :height="'100%'"
             :zoom="mapboxSettings.zoom"
             >
                 <Mapbox
                  :class="'map-wrapper'"
-
                 :accessToken="mapboxToken"
                 :map_style="mapboxSettings.style"
                 :container="'mapbox-2'"
@@ -104,17 +70,8 @@
     import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL} from './exampleSettings'
     import MAPBOX_TOKEN from '../env.js'
     import {getTooltip, colorScale} from './exampleUtils'
-    import {MapController} from '@deck.gl/core';
 
 
-    class CustomController extends MapController {
-             setProps(props) {
-                 super.setProps()
-                console.log(props)
-            }
-    }
-
-    var controller = CustomController
 
     export default {
         components: {  DeckGl, MapView, Mapbox, GeoJsonLayer },
@@ -129,7 +86,6 @@
                 hasDeckLoaded: false,
                 data_url: '',
                 colorScale: colorScale,
-                controller: controller
             }
         },
         methods: {
