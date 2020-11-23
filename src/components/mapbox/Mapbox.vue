@@ -44,7 +44,8 @@
             setTimeout(() => this.map.resize(), 300);
             },
                 loadWindow(){
-                this.map.resize()
+                      setTimeout(() => this.map.resize(), 300);
+
         }
         }
     }

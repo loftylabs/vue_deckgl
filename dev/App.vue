@@ -9,7 +9,7 @@
             :height="'100%'"
             :canvas="'deck-canvas'"
             :controller="true"
-            :useDevicePixels="false"
+            :useDevicePixels="true"
             :controlMap="true"
             :viewState="deckglSettings.viewState"
             @initialRender="()=>{hasDeckLoaded = true}"
@@ -36,8 +36,8 @@
             :longitude="mapboxSettings.center[0]"
             :latitude="mapboxSettings.center[1]"
             :controller="true"
-            :width="'25%'"
-            :height="'25%'"
+            :width="'100%'"
+            :height="'100%'"
             :zoom="mapboxSettings.zoom"
             >
                 <Mapbox

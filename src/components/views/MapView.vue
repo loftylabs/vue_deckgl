@@ -24,8 +24,8 @@ export default {
     },
     mounted(){
       this.setWidthHeight()
-
       this.map = processChildren(this.$children)
+
     },
     methods:{
       setWidthHeight(){

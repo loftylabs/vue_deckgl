@@ -120,15 +120,14 @@ export default {
         },
         onWindowResizeHandler(){
             setTimeout(() => {
-                console.log(this.deck)
                 this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
             }, 600);
         },
         loadWindow(){
-        this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
-
+             setTimeout(() => {
+                this.deck.setProps({...this.deck.props, width:'100%', height:'100%'})
+            }, 600);
         }
-
     }
 }
 </script>
