@@ -8,7 +8,7 @@ fullscreen: false
 menuTitle: 'Using Multiple Views'
 ---
 
-Deck GL allows for the visualization of your layers through multiple viewpoints. There are several types of views that Deck Gl has, the MapView being the default and most common one. Other examples are First Person and Orthographic. You can have multiple views and the example below implements a full width map and a minimap.
+Deck GL allows for the visualization of your layers through multiple viewpoints. There are several types of views that Deck Gl has, the MapView being the default and most common one. Other examples are First Person and Orthographic views. You can have multiple views to visualize your data from multiple viewpoints. The example below implements a full width map and a minimap.
 
 
 
