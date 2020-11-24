@@ -51,6 +51,8 @@ export default {
         })
 
         window.addEventListener('resize', this.onWindowResizeHandler)
+        window.addEventListener('load', this.onWindowResizeHandler)
+
         
     },
     watch: {

@@ -31,6 +31,8 @@
             this.map = new mapboxgl.Map({...MAPBOX_SETTINGS, ...this.$attrs, style: this.map_style })
 
             window.addEventListener('resize', this.onWindowResizeHandler)
+            window.addEventListener('load', this.resize)
+
         },
         methods: {
             jumpTo(center, zoom, bearing, pitch){
