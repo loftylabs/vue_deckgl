@@ -12,6 +12,8 @@
             :useDevicePixels="false"
             :viewState="deckglSettings.viewState"
             @initialRender="()=>{hasDeckLoaded = true}"
+            :getTooltip="deckTooltipCallback"
+            
             >
                 <Mapbox
                 :class="['fill-wrapper']"
@@ -38,6 +40,7 @@
                 :getFillColor="f => colorScale(f.properties.growth)"
                 :getLineColor="[255, 255, 255]"
                 :pickable="true"
+                :onHover="deckTooltipCallback"
             />
         </DeckGl>
         <h1 v-if="!hasDeckLoaded">Loading...</h1>
@@ -45,6 +48,10 @@
             <button  @click="testSinglePick">Test Deck Single Pick object</button>
             <button  @click="testMultiPick">Test Deck Multi Pick object</button>
             <button  @click="testObjectsPick">Test Deck Objects Pick object</button>
+        </div>
+        <div id="example-deck-tooltip" v-if="deckTooltipHovered" :style="hoverPosition">
+            <p>valuePerSqm: {{deckHoveredData.valuePerSqm}}</p>
+            <p>Growth: {{deckHoveredData.growth}}</p>
         </div>
     </div>
 </template>
@@ -68,11 +75,34 @@
                 layers:[ ],
                 hasDeckLoaded: false,
                 data_url: '',
-                colorScale: colorScale
+                colorScale: colorScale,
+                deckTooltipHovered: false,
+                deckHoveredData: {x:0, y:0, valuePerSqm: 0, growth:0}
+            }
+        },
+        computed: {
+              hoverPosition: function () {
+                return {
+                    'position': 'absolute',
+                    'left': (this.deckHoveredData.x + 30) + 'px',
+                    'top': (this.deckHoveredData.y + + 30) + 'px'
+                }
             }
         },
         methods: {
            getTooltip,
+            deckTooltipCallback({x,y, picked, object}){
+                if(!(picked)){
+                    this.deckTooltipHovered = false
+                    return 
+                }
+                
+                this.deckTooltipHovered = true
+                this.deckHoveredData.x = x
+                this.deckHoveredData.y = y
+                this.deckHoveredData.valuePerSqm = object.properties.valuePerSqm
+                this.deckHoveredData.growth = object.properties.growth
+            },
             testSinglePick(){
                 console.log(this.$refs.deck.pickObject(100, 100, 0, null, false))
             },
@@ -96,5 +126,11 @@
         left: 0;
         width: 100%;
         height: 100%;
+    }
+    #example-deck-tooltip{
+        position:absolute;
+        background-color:purple;
+        width:10%;
+        height:10%;
     }
 </style>
