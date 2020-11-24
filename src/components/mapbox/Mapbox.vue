@@ -1,5 +1,5 @@
 <template>
-    <div id="map"></div>
+    <div :id="this.$attrs.container"></div>
 </template>
 
 
@@ -31,6 +31,8 @@
             this.map = new mapboxgl.Map({...MAPBOX_SETTINGS, ...this.$attrs, style: this.map_style })
 
             window.addEventListener('resize', this.onWindowResizeHandler)
+            window.addEventListener('load', this.resize)
+
         },
         methods: {
             jumpTo(center, zoom, bearing, pitch){
@@ -40,8 +42,8 @@
                 this.map.resize()
             },
             onWindowResizeHandler(){
-            setTimeout(() => this.map.resize(), 300);
-            }
+                setTimeout(() => this.map.resize(), 300);
+            },
         }
     }
 </script>

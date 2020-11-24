@@ -14,7 +14,7 @@ Because we love Declarative Templating so much, we simply slot a Layer Component
  
 
 In this example, we will be using GeoJSON data provided via this URL: 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'
-  - Data passed to the layer component could be a URL to the data or data that you fetch yourself via fetch/axois.
+  - Data passed to the layer component could be a URL to the data or data that you fetch yourself via fetch/axios.
 
 ```
 <template>
