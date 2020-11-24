@@ -8,13 +8,13 @@ fullscreen: false
 menuTitle: 'Using Multiple Views'
 ---
 
-Deck GL allows for the visualization of your layers through multiple viewpoints. There are several types of views that Deck Gl has, the MapView being the default and most common one. Other examples are First Person and Orthographic views. You can have multiple views to visualize your data from multiple viewpoints. The example below implements a full width map and a minimap.
+Deck GL allows for the visualization of your layers through multiple viewpoints. There are several types of views that Deck Gl has, the MapView being the default and most common one. Other examples are First Person and Orthographic views. You can have multiple views to visualize your data from multiple viewpoints. The example below implements a full width map with a GeoJson layer and a minimap with the same GeoJson layer. 
 
 
 
 
+Because we love Declarative Templating so much, we simply slot a View Component inside of Vue DeckGL using the provided Vue DeckGL Views. While this ultimately is just a thin abstraction for declarative templating, we hope to eventually add "nice-to-haves" to make working with Views a little easier. When using a slotted view, you will need to provide a Map if you would like to have a map under your layer.
 
-Because we love Declarative Templating so much, we simply slot a View Component inside of Vue DeckGL using the provided Vue DeckGL Views. While this ultimately is just a thin abstraction for declarative templating, we hope to eventually add "nice-to-haves" to make working with Views a little easier.
 
 In this example, we will be using GeoJSON data provided via this URL: 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'
 
@@ -144,3 +144,7 @@ In this example, we will be using GeoJSON data provided via this URL: 'https://r
     }
 </script>
 ```
+- In this example, we are using two map views with a GeoJson layer. 
+- For the first map view, we set the width and height to 100% so it will take up the full screen. Inside this map view we have slotted a Mapbox so that our layer will appear on the map. 
+- For the second map view, we set the width and height to 25% so it will appear as a secondary minimap in the top left. Inside this map view we have slotted a Mapbox so that our layer will appear on the secondary map as well. 
+- When controlling the map, the two maps will move at the same time. If you move the smaller map then it will move the large map and vice versa.
