@@ -7,7 +7,7 @@ const BaseLayerMixin = {
     },
     props:{
         layerData: {
-            type: String,
+            type: [String, Array, Object, Boolean],
             required: true
         },
     },
