@@ -5,12 +5,12 @@ const BaseLayerMixin = {
             baseLayerImplemented: true
         }
     },
-    props:{
-        layerData: {
-            type: [String, Array, Object, Boolean],
-            required: true
-        },
-    },
+    // props:{
+    //     layerData: {
+    //         type:[Object, String],
+    //         required: true
+    //     },
+    // },
     methods: {
         getLayer(){
             return this.layer

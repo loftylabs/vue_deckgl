@@ -109,6 +109,9 @@ export default {
         pickObject(x, y, radius=0, layerIds=null, unproject3D=false) {
             return this.deck.pickObject({x, y, radius, layerIds, unproject3D});
         },
+
+        updateLayers(){
+        },
         // Performs deep picking. Finds all close pickable and visible object at the given screen coordinate, even if those objects are occluded by other objects.
         pickMultipleObjects(x, y, radius=0, layerIds=null, depth=10, unproject3D=false) {
             return this.deck.pickMultipleObjects({x, y, radius, layerIds, depth, unproject3D});
