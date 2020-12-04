@@ -34,18 +34,22 @@ In this example, we will be using GeoJSON data provided via this URL: 'https://r
                 :zoom="11"
                 :bearing="0"
                 :pitch="45"/>
-        <GeoJsonLayer 
-          :layerData="'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'"             
-          :id="'mylayer'"
-          :opacity="0.8"
-          :stroke="false"
-          :filled="true"
-          :extruded="true"
-          :wireframe="true"
-          :fp64="true"
-          :getElevation="f => Math.sqrt(f.properties.valuePerSqm) * 10"
-          :getLineColor="[255, 255, 255]"
-          :pickable="true"
+        <GeoJsonLayer
+        :data="data_url"
+        :id="'my-layer'"
+        :visible="topVisible"
+        :class="'layer'"
+        :opacity="0.8"
+        :stroke="false"
+        :filled="true"
+        :extruded="true"
+        :wireframe="true"
+        :fp64="true"
+        :getElevation="(f) => Math.sqrt(f.properties.valuePerSqm) * 10"
+        :getFillColor="(f) => colorScale(f.properties.growth)"
+        :getLineColor="[255, 255, 255]"
+        :pickable="true"
+        :onHover="deckTooltipCallback"
       />
     </DeckGL>
   </div>
@@ -99,3 +103,34 @@ export default {
 That's it! Now mileage may vary if you are attempting to implement a more complicated layer, but the key piece to get started is to utilize the BaseLayerMixin and specify your typeOfLayer in data.
 
 Note the `render: () => null` method. Because we are creating a Vue component that does not render any HTML, but instead works with Deck.gl to display data, we can override the Vue render method to return null here, to do nothing. This allows us to avoid having to include an empty template in our code.
+
+### Changing the properties of a layer
+You will most likely want to be able to change the properties of layers dynamically. We have added watchers that will check what has changed on the layer and rerender it for you. Below is an example of how we can implement a visibility toggle on our layer.
+```
+      <GeoJsonLayer
+        :data="data_url"
+        :id="'my-layer'"
+        :visible="topVisible"
+        :class="'layer'"
+        :opacity="0.8"
+        :stroke="false"
+        :filled="true"
+        :extruded="true"
+        :wireframe="true"
+        :fp64="true"
+        :getElevation="(f) => Math.sqrt(f.properties.valuePerSqm) * 10"
+        :getFillColor="(f) => colorScale(f.properties.growth)"
+        :getLineColor="[255, 255, 255]"
+        :pickable="true"
+        :onHover="deckTooltipCallback"
+      />
+
+
+<button @click="toggleTopLayer">Toggle Top Layer</button>
+
+   toggleTopLayer() {
+      this.topVisible = !this.topVisible;
+    },
+
+```
+That's it! This is just one example of a layer property that can be changed. You could change basically any property you need to.
