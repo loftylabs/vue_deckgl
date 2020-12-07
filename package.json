@@ -11,6 +11,7 @@
   "main": "src/index.js",
   "dependencies": {
     "deck.gl": "^8.2.10",
+    "lodash": "^4.17.20",
     "mapbox-gl": "^1.12.0",
     "vue": "^2.6.12"
   },
