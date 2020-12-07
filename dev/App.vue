@@ -16,7 +16,6 @@
           hasDeckLoaded = true;
         }
       "
-      :getTooltip="deckTooltipCallback"
     >
       <GeoJsonLayer
         :data="data_url"
@@ -35,6 +34,20 @@
         :pickable="true"
         :onHover="deckTooltipCallback"
       />
+      <PolygonLayer 
+     
+    :data="'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-zipcodes.json'"
+    :pickable="true"
+    :stroked="true"
+    :filled="true"
+    :wireframe="true"
+    lineWidthMinPixels="1"
+    :getPolygon="d => d.contour"
+    :getElevation="d => d.population / d.area / 10"
+    :getFillColor="d => [d.population / d.area / 60, 140, 0]"
+    :getLineColor="[80, 80, 80]"
+    :getLineWidth="d => 1"
+/>
       <MapView
         :id="'my-map-view-2'"
         :longitude="mapboxSettings.center[0]"
@@ -89,8 +102,8 @@
       v-if="deckTooltipHovered"
       :style="hoverPosition"
     >
-      <p>valuePerSqm: {{ deckHoveredData.valuePerSqm }}</p>
-      <p>Growth: {{ deckHoveredData.growth }}</p>
+      <p>valuePerSqm: {{ deckHoveredData.valuePerSq || 'NA' }}</p>
+      <p>Growth: {{ deckHoveredData.growth || 'NA' }}</p>
     </div>
   </div>
 </template>
@@ -99,13 +112,14 @@
 import DeckGl from "../src/components/deckgl";
 import Mapbox from "../src/components/mapbox";
 import GeoJsonLayer from "../src/components/layers/GeoJsonLayer";
+import PolygonLayer from '../src/components/layers/PolygonLayer';
 import MapView from "../src/components/views/MapView";
 import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL } from "./exampleSettings";
 import MAPBOX_TOKEN from "../env.js";
 import { getTooltip, colorScale } from "./exampleUtils";
 
 export default {
-  components: { DeckGl, Mapbox, MapView, GeoJsonLayer },
+  components: { DeckGl, Mapbox, MapView, GeoJsonLayer, PolygonLayer },
   name: "Example",
   data() {
     return {
