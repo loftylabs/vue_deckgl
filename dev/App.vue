@@ -102,7 +102,7 @@
       v-if="deckTooltipHovered"
       :style="hoverPosition"
     >
-      <p>valuePerSqm: {{ deckHoveredData.valuePerSq || 'NA' }}</p>
+      <p>valuePerSqm: {{ deckHoveredData.valuePerSqm || 'NA' }}</p>
       <p>Growth: {{ deckHoveredData.growth || 'NA' }}</p>
     </div>
   </div>
