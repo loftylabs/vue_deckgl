@@ -1,6 +1,6 @@
-import MAPBOX_TOKEN from '../env.js'
+import MAPBOX_TOKEN from '../../env.js'
 
-const DATA_URL = 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-zipcodes.json'
+const DATA_URL = 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json'
 
 const MAP_STYLES = {
     'satellite': 'mapbox://styles/mapbox/satellite-v9',

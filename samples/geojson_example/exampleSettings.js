@@ -1,4 +1,4 @@
-import MAPBOX_TOKEN from '../env.js'
+import MAPBOX_TOKEN from '../../env.js'
 
 const DATA_URL = 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'
 
