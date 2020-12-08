@@ -17,41 +17,19 @@
         }
       "
     >
-      <GeoJsonLayer
-        :data="data_url"
-        :id="'my-layer'"
-        :visible="topVisible"
-        :class="'layer'"
-        :opacity="0.8"
-        :stroke="false"
-        :filled="true"
-        :extruded="true"
-        :wireframe="true"
-        :fp64="true"
-        :getElevation="(f) => Math.sqrt(f.properties.valuePerSqm) * 10"
-        :getFillColor="(f) => colorScale(f.properties.growth)"
-        :getLineColor="[255, 255, 255]"
-        :pickable="true"
-        :onHover="deckTooltipCallback"
-      />
-<<<<<<< HEAD:samples/geojson_example/App.vue
-
-=======
       <PolygonLayer 
-     
-    :data="'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-zipcodes.json'"
-    :pickable="true"
-    :stroked="true"
-    :filled="true"
-    :wireframe="true"
-    lineWidthMinPixels="1"
-    :getPolygon="d => d.contour"
-    :getElevation="d => d.population / d.area / 10"
-    :getFillColor="d => [d.population / d.area / 60, 140, 0]"
-    :getLineColor="[80, 80, 80]"
-    :getLineWidth="d => 1"
-/>
->>>>>>> 32b148d330872be55fedae8874b87b8764e3e4fa:geojson_example/App.vue
+          :data="data_url"
+          :pickable="true"
+          :stroked="true"
+          :filled="true"
+          :wireframe="true"
+          lineWidthMinPixels="1"
+          :getPolygon="d => d.contour"
+          :getElevation="d => d.population / d.area / 10"
+          :getFillColor="d => [d.population / d.area / 60, 140, 0]"
+          :getLineColor="[80, 80, 80]"
+          :getLineWidth="d => 1"
+      />
       <MapView
         :id="'my-map-view-2'"
         :longitude="mapboxSettings.center[0]"
@@ -72,26 +50,7 @@
           :pitch="mapboxSettings.pitch"
         />
       </MapView>
-      <MapView
-        :id="'my-map-view-1'"
-        :longitude="mapboxSettings.center[0]"
-        :latitude="mapboxSettings.center[1]"
-        :controller="true"
-        :width="'25%'"
-        :height="'25%'"
-        :zoom="mapboxSettings.zoom"
-      >
-        <Mapbox
-          :accessToken="mapboxToken"
-          :map_style="mapboxSettings.style"
-          :container="'mapbox-3'"
-          :interactive="true"
-          :center="mapboxSettings.center"
-          :zoom="mapboxSettings.zoom"
-          :bearing="mapboxSettings.bearing"
-          :pitch="mapboxSettings.pitch"
-        />
-      </MapView>
+
     </DeckGl>
     <h1 v-if="!hasDeckLoaded">Loading...</h1>
     <div style="position:absolute;">
@@ -101,36 +60,21 @@
       <button @click="toggleTopLayer">Toggle Top Layer</button>
     </div>
 
-    <div
-      id="example-deck-tooltip"
-      v-if="deckTooltipHovered"
-      :style="hoverPosition"
-    >
-      <p>valuePerSqm: {{ deckHoveredData.valuePerSqm || 'NA' }}</p>
-      <p>Growth: {{ deckHoveredData.growth || 'NA' }}</p>
-    </div>
+
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD:samples/geojson_example/App.vue
-import DeckGl from "../../src/components/deckgl";
-import Mapbox from "../../src/components/mapbox";
-import GeoJsonLayer from "../../src/components/layers/GeoJsonLayer";
-import MapView from "../../src/components/views/MapView";
-=======
 import DeckGl from "../src/components/deckgl";
 import Mapbox from "../src/components/mapbox";
-import GeoJsonLayer from "../src/components/layers/GeoJsonLayer";
 import PolygonLayer from '../src/components/layers/PolygonLayer';
 import MapView from "../src/components/views/MapView";
->>>>>>> 32b148d330872be55fedae8874b87b8764e3e4fa:geojson_example/App.vue
 import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL } from "./exampleSettings";
-import MAPBOX_TOKEN from "../../env.js";
-import { getTooltip, colorScale } from "./exampleUtils";
+import MAPBOX_TOKEN from "../env.js";
+import {  colorScale } from "./exampleUtils";
 
 export default {
-  components: { DeckGl, Mapbox, MapView, GeoJsonLayer, PolygonLayer },
+  components: { DeckGl, Mapbox, MapView, PolygonLayer },
   name: "Example",
   data() {
     return {
@@ -143,7 +87,7 @@ export default {
       data_url: "",
       colorScale: colorScale,
       deckTooltipHovered: false,
-      deckHoveredData: { x: 0, y: 0, valuePerSqm: 0, growth: 0 },
+      deckHoveredData: { x: 0, y: 0 },
     };
   },
   computed: {
@@ -156,19 +100,6 @@ export default {
     },
   },
   methods: {
-    getTooltip,
-    deckTooltipCallback({ x, y, picked, object }) {
-      if (!picked) {
-        this.deckTooltipHovered = false;
-        return;
-      }
-
-      this.deckTooltipHovered = true;
-      this.deckHoveredData.x = x;
-      this.deckHoveredData.y = y;
-      this.deckHoveredData.valuePerSqm = object.properties.valuePerSqm;
-      this.deckHoveredData.growth = object.properties.growth;
-    },
     testSinglePick() {
       console.log(this.$refs.deck.pickObject(100, 100, 0, null, false));
     },
