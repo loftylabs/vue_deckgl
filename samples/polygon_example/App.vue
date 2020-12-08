@@ -20,6 +20,7 @@
       <PolygonLayer 
           :data="data_url"
           :pickable="true"
+          :visible="topVisible"
           :stroked="true"
           :filled="true"
           :wireframe="true"
@@ -65,12 +66,12 @@
 </template>
 
 <script>
-import DeckGl from "../src/components/deckgl";
-import Mapbox from "../src/components/mapbox";
-import PolygonLayer from '../src/components/layers/PolygonLayer';
-import MapView from "../src/components/views/MapView";
+import DeckGl from "../../src/components/deckgl";
+import Mapbox from "../../src/components/mapbox";
+import PolygonLayer from '../../src/components/layers/PolygonLayer';
+import MapView from "../../src/components/views/MapView";
 import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL } from "./exampleSettings";
-import MAPBOX_TOKEN from "../env.js";
+import MAPBOX_TOKEN from "../../env.js";
 import {  colorScale } from "./exampleUtils";
 
 export default {

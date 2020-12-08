@@ -34,20 +34,7 @@
         :pickable="true"
         :onHover="deckTooltipCallback"
       />
-      <PolygonLayer 
-     
-    :data="'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-zipcodes.json'"
-    :pickable="true"
-    :stroked="true"
-    :filled="true"
-    :wireframe="true"
-    lineWidthMinPixels="1"
-    :getPolygon="d => d.contour"
-    :getElevation="d => d.population / d.area / 10"
-    :getFillColor="d => [d.population / d.area / 60, 140, 0]"
-    :getLineColor="[80, 80, 80]"
-    :getLineWidth="d => 1"
-/>
+
       <MapView
         :id="'my-map-view-2'"
         :longitude="mapboxSettings.center[0]"
@@ -109,17 +96,16 @@
 </template>
 
 <script>
-import DeckGl from "../src/components/deckgl";
-import Mapbox from "../src/components/mapbox";
-import GeoJsonLayer from "../src/components/layers/GeoJsonLayer";
-import PolygonLayer from '../src/components/layers/PolygonLayer';
-import MapView from "../src/components/views/MapView";
+import DeckGl from "../../src/components/deckgl";
+import Mapbox from "../../src/components/mapbox";
+import GeoJsonLayer from "../../src/components/layers/GeoJsonLayer";
+import MapView from "../../src/components/views/MapView";
 import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL } from "./exampleSettings";
-import MAPBOX_TOKEN from "../env.js";
+import MAPBOX_TOKEN from "../../env.js";
 import { getTooltip, colorScale } from "./exampleUtils";
 
 export default {
-  components: { DeckGl, Mapbox, MapView, GeoJsonLayer, PolygonLayer },
+  components: { DeckGl, Mapbox, MapView, GeoJsonLayer },
   name: "Example",
   data() {
     return {

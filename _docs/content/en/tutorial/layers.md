@@ -106,6 +106,7 @@ Here is a list of layer type components currently provided:
 
 - GeoJson Layer
 - PolygonLayer
+- Hexagon Layer
 
 Note the `render: () => null` method. Because we are creating a Vue component that does not render any HTML, but instead works with Deck.gl to display data, we can override the Vue render method to return null here, to do nothing. This allows us to avoid having to include an empty template in our code.
 
