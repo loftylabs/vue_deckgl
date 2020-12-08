@@ -44,13 +44,7 @@ function colorScale(x) {
   }
 
 
-function getTooltip({object}) {
-    return object && `Average Property Value
-  ${object.properties.valuePerSqm}
-  Growth
-  ${Math.round(object.properties.growth * 100)}`;
-  }
-  
 
 
-export {landCover, dirLight, ambientLight, colorScale, getTooltip}
+
+export {landCover, dirLight, ambientLight, colorScale }
