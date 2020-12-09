@@ -104,7 +104,7 @@ import MAPBOX_TOKEN from "../../env.js";
 import { getTooltip, colorScale } from "./exampleUtils";
 
 export default {
-  components: { DeckGl, Mapbox, MapView, GeoJsonLayer, PolygonLayer },
+  components: { DeckGl, Mapbox, MapView, GeoJsonLayer },
   name: "Example",
   data() {
     return {
