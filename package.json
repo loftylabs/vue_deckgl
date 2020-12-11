@@ -4,7 +4,7 @@
   "description": "",
   "author": "hirelofty.com",
   "scripts": {
-    "serve": "vue serve samples/geojson_example/App.vue",
+    "serve": "vue serve samples/raster_example/App.vue",
     "test:unit": "vue-cli-service test:unit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
