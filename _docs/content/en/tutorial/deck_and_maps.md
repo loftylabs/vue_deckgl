@@ -8,7 +8,7 @@ fullscreen: false
 menuTitle: 'Implementing a Map'
 ---
 
-If you've added DeckGL as a component in your project and only see an emtpy white box, you are making progress. At this point, DeckGL (asumming there are no errors) is running! 
+If you've added DeckGL as a component in your project and only see an empty white box, you are making progress. At this point, DeckGL (asumming there are no errors) is running! 
 
 DeckGL is often used to look Geospatial data(but it doesn't have to be). To help visualize that data, we need to provide DeckGL with a map.
 
