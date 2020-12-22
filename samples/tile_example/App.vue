@@ -11,21 +11,13 @@
       :useDevicePixels="true"
       :controlMap="true"
       :viewState="deckglSettings.viewState"
-      @initialRender="
-        () => {
-          hasDeckLoaded = true;
-        }
-      "
+      @initialRender="() => { hasDeckLoaded = true; }"
     >
     <TileLayer
          :id="'tile-layer'"
          :data="'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'"
          :renderSubLayers="props => renderSubLayers(props)"
-
-
     />
-
-
    
       <MapView
         :id="'my-map-view-2'"
@@ -56,14 +48,7 @@
       <button @click="toggleTopLayer">Toggle Top Layer</button>
     </div>
 
-    <div
-      id="example-deck-tooltip"
-      v-if="deckTooltipHovered"
-      :style="hoverPosition"
-    >
-      <p>valuePerSqm: {{ deckHoveredData.valuePerSqm || 'NA' }}</p>
-      <p>Growth: {{ deckHoveredData.growth || 'NA' }}</p>
-    </div>
+  
   </div>
 </template>
 
@@ -72,7 +57,7 @@ import DeckGl from "../../src/components/deckgl";
 import Mapbox from "../../src/components/mapbox";
 import TileLayer from '../../src/components/layers/TileLayer'
 import MapView from "../../src/components/views/MapView";
-import { MAPBOX_SETTINGS, DECKGL_SETTINGS, DATA_URL } from "./exampleSettings";
+import { MAPBOX_SETTINGS, DECKGL_SETTINGS } from "./exampleSettings";
 import MAPBOX_TOKEN from "../../env.js";
 import { getTooltip, colorScale } from "./exampleUtils";
 
@@ -89,36 +74,12 @@ export default {
       layers: [],
       topVisible: true,
       hasDeckLoaded: false,
-      data_url: "",
-      image_url:null,
       colorScale: colorScale,
       deckTooltipHovered: false,
-      deckHoveredData: { x: 0, y: 0, valuePerSqm: 0, growth: 0 },
     };
-  },
-  computed: {
-    hoverPosition: function() {
-      return {
-        position: "absolute",
-        left: this.deckHoveredData.x + 30 + "px",
-        top: this.deckHoveredData.y + +30 + "px",
-      };
-    },
   },
   methods: {
     getTooltip,
-    deckTooltipCallback({ x, y, picked, object }) {
-      if (!picked) {
-        this.deckTooltipHovered = false;
-        return;
-      }
-
-      this.deckTooltipHovered = true;
-      this.deckHoveredData.x = x;
-      this.deckHoveredData.y = y;
-      this.deckHoveredData.valuePerSqm = object.properties.valuePerSqm;
-      this.deckHoveredData.growth = object.properties.growth;
-    },
     testSinglePick() {
       console.log(this.$refs.deck.pickObject(100, 100, 0, null, false));
     },
@@ -144,9 +105,6 @@ export default {
               bounds: [west, south, east, north]
             });
           }
-  },
-  async created() {
-    this.data_url = DATA_URL;
   },
 };
 </script>
