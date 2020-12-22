@@ -1,5 +1,4 @@
 <script>
-// import {TileLayer} from '@deck.gl/layers';
 import {TileLayer} from '@deck.gl/geo-layers';
 import BaseLayerMixin from "./BaseLayerMixin";
 
