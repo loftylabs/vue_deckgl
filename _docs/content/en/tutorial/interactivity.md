@@ -10,7 +10,7 @@ menuTitle: 'Interactivity'
 
 ### Interactivity with DeckGL
 
-Interactivity comes in a couple different forms with DeckGL 
+Interactivity comes in a couple different forms with DeckGL. 
 
 - Controll the Viewport: `:controller="true" :controlMap="true" ` ship by default, but these properties enable DeckGL/Mapbox to respond to viewState changes via mouse drag, scroll,etc.
 

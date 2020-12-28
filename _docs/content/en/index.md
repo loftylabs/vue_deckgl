@@ -13,7 +13,7 @@ menuTitle: 'Intro'
 A prebuilt Vue.js component wrapping the [DeckGL library](https://deck.gl/).
 
 - [How to install](/installation)
-- [Instant Example](/instant_example)
+- [Instant Example](/instant)
 
 
 ## Full Tutorial
