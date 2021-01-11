@@ -13,7 +13,7 @@ menuTitle: 'Intro'
 A prebuilt Vue.js component wrapping the [DeckGL library](https://deck.gl/).
 
 - [How to install](/installation)
-- [Instant Example](/instant_example)
+- [Instant Example](/instant)
 
 
 ## Full Tutorial
@@ -21,6 +21,7 @@ A prebuilt Vue.js component wrapping the [DeckGL library](https://deck.gl/).
 - [DeckGL and Maps](/tutorial/deck_and_maps)
 - [Configuring Settings](/tutorial/settings)
 - [Adding Data with Layers](/tutorial/layers)
+- [Using Multiple Views](/tutorial/views)
 - [Interactivity with DeckGL](/tutorial/interactivity)
 - [DeckGL LifeCycle events](/tutorial/lifecycle)
 

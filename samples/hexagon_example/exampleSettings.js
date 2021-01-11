@@ -1,6 +1,6 @@
-import MAPBOX_TOKEN from '../env.js'
+import MAPBOX_TOKEN from '../../env.js'
 
-const DATA_URL = 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'
+const DATA_URL = 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json'
 
 const MAP_STYLES = {
     'satellite': 'mapbox://styles/mapbox/satellite-v9',
@@ -10,8 +10,8 @@ const MAP_STYLES = {
 
 
 const INITIAL_VIEW_STATE = {
-    latitude: 49.254,
-    longitude: -123.13,
+    latitude: 37.7749,
+    longitude: -122.4194,
     zoom: 11,
     maxZoom: 16,
     pitch: 45,

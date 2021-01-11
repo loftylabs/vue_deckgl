@@ -10,10 +10,11 @@ menuTitle: 'Adding Data With Layers'
 
 DeckGL accepts data through the use of [many types of different layers](https://deck.gl/docs/api-reference/layers). 
 
-To provide data to DeckGL, we simply create a Layer using the DeckGL Core Library and pass it to the `:layers` prop on the DeckGL Component. 
-  - Data passed to the layer could be a URL to the data or data that you fetch yourself via fetch/axois.
+Because we love Declarative Templating so much, we simply slot a Layer Component inside of Vue DeckGL using the provided Vue DeckGL Layers. While this ultimately is just a thin abstraction for declarative templating, we hope to eventually add "nice-to-haves" to make working with Layers a little easier.
+ 
 
 In this example, we will be using GeoJSON data provided via this URL: 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'
+  - Data passed to the layer component could be a URL to the data or data that you fetch yourself via fetch/axios.
 
 ```
 <template>
@@ -21,7 +22,6 @@ In this example, we will be using GeoJSON data provided via this URL: 'https://r
       <DeckGL ref="deck"
             :class="['fill-wrapper']"
             :controlMap="true"
-            :layers="layers"
             :width="'100%'"
             :height="'100%'"
             :controller="true"
@@ -34,40 +34,37 @@ In this example, we will be using GeoJSON data provided via this URL: 'https://r
                 :zoom="11"
                 :bearing="0"
                 :pitch="45"/>
+        <GeoJsonLayer
+        :data="data_url"
+        :id="'my-layer'"
+        :visible="topVisible"
+        :class="'layer'"
+        :opacity="0.8"
+        :stroke="false"
+        :filled="true"
+        :extruded="true"
+        :wireframe="true"
+        :fp64="true"
+        :getElevation="(f) => Math.sqrt(f.properties.valuePerSqm) * 10"
+        :getFillColor="(f) => colorScale(f.properties.growth)"
+        :getLineColor="[255, 255, 255]"
+        :pickable="true"
+        :onHover="deckTooltipCallback"
+      />
     </DeckGL>
   </div>
 </template>
 
 <script>
-import {DeckGL, Mapbox} from '@hirelofty/vue_deckgl'
-import {GeoJsonLayer} from '@deck.gl/layers';
+import {DeckGL, Mapbox, GeoJsonLayer} from '@hirelofty/vue_deckgl'
 
 export default {
   name: 'App',
   components: {
     DeckGL,
-    Mapbox
+    Mapbox,
+    GeoJsonLayer
   }, 
-  data(){
-      return{
-          layers:[]
-      }
-  },
-  mounted(){
-        this.layers.push(new GeoJsonLayer({
-            id: 'mylayer',
-            data: 'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json',
-            opacity: 0.8,
-            stroked: false,
-            filled: true,
-            extruded: true,
-            wireframe: true,
-            fp64: true,
-            getElevation: f => Math.sqrt(f.properties.valuePerSqm) * 10,
-            getLineColor: [255, 255, 255],
-            pickable: true,
-        }))
-  }
 }
 </script>
 
@@ -81,17 +78,66 @@ Notes about the implementation above
 - We provide new GeoJsonLayer with a url to the data.
 - Because this data is in Vancouver, we set the viewState of DeckGL and Mapbox to default to Vancouver so we can see it.
 
-#### Future Implementation of Layers
+#### Are we not currently providing a layer you want to use? Create it and submit a PR! It's easy!
 
-Because we love Declarative Templating so much, our eventual goal is to build small Component wrappers around Layers so that the API is providing Layers via Slot rather than props. These also will include "nice to haves" that make Layers easier to use.
+To do this, all you need to do is create a layer that utilizes the BaseLayerMixin. This mixin is how Vue DeckGL knows that a slotted component passed was a layer type. Here's a quick example of implementing a GeoJsonLayer
 
-An example being...
 ```
-<template>
-    <DeckGL>
-        <Mapbox />
-        <GeoJsonLayer :data='DATA' />
-        <ScatterPlotLayer :data='DATA' />
-    </DeckGL>
-</template>
+<script>
+import { GeoJsonLayer } from "@deck.gl/layers";
+import BaseLayerMixin from "./BaseLayerMixin";
+
+export default {
+  name: "GeoJsonLayer",
+  mixins: [BaseLayerMixin],
+  data() {
+    return {
+      typeOfLayer: GeoJsonLayer,
+    };
+  },
+  render: () => null,
+};
+</script>
+
 ```
+That's it! Now mileage may vary if you are attempting to implement a more complicated layer, but the key piece to get started is to utilize the BaseLayerMixin and specify your typeOfLayer in data.
+
+Here is a list of layer type components currently provided:
+
+- GeoJson Layer
+- PolygonLayer
+- Hexagon Layer
+- Tile Layer
+
+Note the `render: () => null` method. Because we are creating a Vue component that does not render any HTML, but instead works with Deck.gl to display data, we can override the Vue render method to return null here, to do nothing. This allows us to avoid having to include an empty template in our code.
+
+### Changing the properties of a layer
+You will most likely want to be able to change the properties of layers dynamically. We have added watchers that will check what has changed on the layer and rerender it for you. Below is an example of how we can implement a visibility toggle on our layer.
+```
+      <GeoJsonLayer
+        :data="data_url"
+        :id="'my-layer'"
+        :visible="topVisible"
+        :class="'layer'"
+        :opacity="0.8"
+        :stroke="false"
+        :filled="true"
+        :extruded="true"
+        :wireframe="true"
+        :fp64="true"
+        :getElevation="(f) => Math.sqrt(f.properties.valuePerSqm) * 10"
+        :getFillColor="(f) => colorScale(f.properties.growth)"
+        :getLineColor="[255, 255, 255]"
+        :pickable="true"
+        :onHover="deckTooltipCallback"
+      />
+
+
+<button @click="toggleTopLayer">Toggle Top Layer</button>
+
+   toggleTopLayer() {
+      this.topVisible = !this.topVisible;
+    },
+
+```
+That's it! This is just one example of a layer property that can be changed. You could change basically any property you need to.

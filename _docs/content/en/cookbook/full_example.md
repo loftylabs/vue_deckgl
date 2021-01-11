@@ -10,6 +10,6 @@ menuTitle: 'Full Example'
 
 ## Full examples
 
-All examples of test code can be [found here](https://github.com/loftylabs/vue_deckgl/tree/development/dev)
+All examples of test code can be [found here](https://github.com/loftylabs/vue_deckgl/tree/development/samples)
 
-These examples are known workng that we use during development and to test new features. 
+These examples are the ones that we use during development and to test new features. 
