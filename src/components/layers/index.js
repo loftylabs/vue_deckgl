@@ -1,8 +1,8 @@
 
 import BaseLayerMixin from './BaseLayerMixin'
-import GeoJsonlayer from './GeoJsonlayer'
+import GeoJsonLayer from './GeoJsonLayer'
 import PolygonLayer from './PolygonLayer'
 import HexagonLayer from './HexagonLayer'
 import TileLayer from './TileLayer'
 
-export { BaseLayerMixin, GeoJsonlayer, PolygonLayer, HexagonLayer, TileLayer } 
+export { BaseLayerMixin, GeoJsonLayer, PolygonLayer, HexagonLayer, TileLayer } 
