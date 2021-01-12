@@ -40,7 +40,6 @@ For full explanation, [please visit the tutorial](https://loftylabs.github.io/vu
       <DeckGL ref="deck"
             :class="['fill-wrapper']"
             :controlMap="true"
-            :layers="layers"
             :width="'100%'"
             :height="'100%'"
             :controller="true"
@@ -48,14 +47,15 @@ For full explanation, [please visit the tutorial](https://loftylabs.github.io/vu
             :viewState="{latitude: 49.254, longitude: -123.13, zoom: 11, maxZoom: 16, pitch: 45, bearing: 0}"
             >
         <Mapbox class="fill-wrapper" 
-                :accessToken="'YOUR MAPBOX TOKEN'"                 
+                :accessToken="'YOUR MAPBOX TOKEN'"      
+                :container="'mapbox'"           
                 :center="[-123.13, 49.254]"
                 :zoom="11"
                 :bearing="0"
                 :pitch="45"
                 />
         <GeoJsonLayer 
-        :layerData="'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'"             
+        :data="'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'"             
         :id="'mylayer'"
         :opacity="0.8"
         :stroke="false"
